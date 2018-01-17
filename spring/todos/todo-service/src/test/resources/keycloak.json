@@ -1,0 +1,8 @@
+{
+  "realm": "master",
+  "auth-server-url": "${SSO_AUTH_SERVER_URL}",
+  "resource": "demoapp",
+  "credentials": {
+    "secret": "1daa57a2-b60e-468b-a3ac-25bd2dc2eadc"
+  }
+}

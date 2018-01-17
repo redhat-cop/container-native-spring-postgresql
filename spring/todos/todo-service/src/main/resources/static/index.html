@@ -1,0 +1,107 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <title>Secured HTTP API</title>
+  <script type="application/javascript" src="js/keycloak-3.1.0.min.js"></script>
+</head>
+<body onload="initSSO()">
+<div class="container">
+
+  <div>
+    <h1>Secure HTTP API - Spring Boot</h1>
+    <p class="lead">The mission expands on the REST API Level 0 Booster by securing a REST endpoint using <a
+            href="https://access.redhat.com/products/red-hat-single-sign-on">Red Hat SSO</a>. Red Hat SSO implements the
+      OAuth 2.0 specification and uses it to issue access tokens to provide clients with various access rights to secured
+      resources. Securing an application with SSO enables you to add security to your applications while centralizing the
+      security configuration.
+    </p>
+
+    <h2>Using the greeting service</h2>
+    <p class="lead">The greeting service is a protected endpoint. You will need to login first.
+    </p>
+
+    <div class=form-group>
+      <button id="login" onclick="keycloak.login()" class="btn">Login</button>
+      <button id="logout" onclick="keycloak.logout()" class="btn">Logout</button>
+    </div>
+
+    <form class="form-inline">
+      <h3>Greeting service (as <span id="user"><i>Unauthenticated</i></span>):</h3>
+      <div class=form-group>
+        <!-- <form onsubmit="return invokeAPI()"> -->
+        <label for="name">Name</label>
+        <input type="text" class="form-control" id="name" placeholder="World">
+        <!-- </form> -->
+      </div>
+      <button id="invoke" class="btn btn-success">Invoke</button>
+    </form>
+
+    <h3>Result:</h3>
+    <pre><code id="result">Invoke the service to see the result.</code></pre>
+
+    <h3>Curl command for the command line:</h3>
+    <div class=form-group>
+      <textarea id="curl" class="form-control" style="font-style: italic;" readonly></textarea>
+    </div>
+  </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+
+<script>
+    // configure the SSO object
+    var keycloak = Keycloak('/keycloak.json');
+
+    function initSSO() {
+        keycloak.init().success(function () {
+            // validate that init operation result
+            if (keycloak.authenticated) {
+                // update UI to show the current user
+                $('#user').text(keycloak.tokenParsed.preferred_username);
+                $('#curl').text('curl -H "Authorization: Bearer ' + keycloak.token + '" http://' + window.location.host + '/api/greeting');
+            } else {
+                // update UI to show the current user
+                $('#user').html('<i>Unauthenticated</i>');
+                $('#curl').text('');
+            }
+        }).error(function (err) {
+            alert(err);
+        });
+    }
+
+    $(document).ready(function () {
+        $("#invoke").click(function (e) {
+            e.preventDefault();
+            //invokeAPI();
+            const name = $("#name").val() || "World";
+            let nameParam = '';
+            if (!(name === null || name === undefined || name === '')) {
+                nameParam = '?name=' + encodeURIComponent(name);
+            }
+            // create a AJAX call
+            const url = '//' + window.location.host + '/api/greeting' + nameParam;
+            $.ajax({
+                url: url,
+                type: 'GET',
+                dataType: 'json',
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Accept', 'application/json');
+                    xhr.setRequestHeader('Authorization', 'Bearer ' + keycloak.token);
+                }
+            }).success(function (res) {
+                $('#result').html(JSON.stringify(res));
+            }).error(function (req) {
+                alert('Invocation failed!\n  cause: [' + req.status + '] ' + req.statusText);
+            });
+            return false;
+        });
+    });
+</script>
+</body>
+</html>

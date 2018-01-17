@@ -1,0 +1,9 @@
+spec:
+  template:
+    spec:
+      containers:
+      - env:
+        - name: JAVA_APP_DIR
+          value: /deployments
+        - name: SSO_AUTH_SERVER_URL
+          value: ${SSO_AUTH_SERVER_URL}

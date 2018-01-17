@@ -1,0 +1,4 @@
+kind: Route
+spec:
+  to:
+    name: ${project.artifactId}
