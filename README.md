@@ -15,7 +15,7 @@ Here are the steps for the installation:
 1. Build and deploy the application
 2. Deploy the crunchy postgresql operator
 3. Deploy postgresql in HA
-4. [Deploy Hashicorp Vault](./vault/deploy-vault)
+4. [Deploy Hashicorp Vault](./vault/deploy-vault.md)
 5. [Configure Vault to use Kubernetes backend authentication](./vault/vault-kube-backend.md)
 6. Configure Vault to manage the postgresql DB
 7. Configure application to use Vault to retrieve the postgresql account
