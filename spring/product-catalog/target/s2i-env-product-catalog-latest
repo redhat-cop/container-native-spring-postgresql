@@ -1,0 +1,2 @@
+JAVA_APP_DIR=/deployments
+JAVA_MAIN_CLASS=com.redhat.productcatalog.ProductCatalogApplication

@@ -1,0 +1,6 @@
+/home/sshamsi/spring-master/coolstore/src/main/java/com/redhat/productcatalog/ProductCatalogApplication.java
+/home/sshamsi/spring-master/coolstore/src/main/java/com/redhat/productcatalog/repositories/ProductRepository.java
+/home/sshamsi/spring-master/coolstore/src/main/java/com/redhat/productcatalog/entities/Product.java
+/home/sshamsi/spring-master/coolstore/src/main/java/com/redhat/productcatalog/interfaces/ProductCatalog.java
+/home/sshamsi/spring-master/coolstore/src/main/java/com/redhat/productcatalog/controllers/ProductCatalogController.java
+/home/sshamsi/spring-master/coolstore/src/main/java/com/redhat/productcatalog/services/ProductCatalogService.java

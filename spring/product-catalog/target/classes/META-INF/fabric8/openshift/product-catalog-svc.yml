@@ -1,0 +1,29 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    fabric8.io/scm-con-url: scm:git:https://github.com/openshiftio/booster-parent.git/product-catalog
+    prometheus.io/port: "9779"
+    fabric8.io/scm-url: https://github.com/openshiftio/product-catalog
+    fabric8.io/iconUrl: img/icons/spring-boot.svg
+    prometheus.io/scrape: "true"
+    fabric8.io/scm-devcon-url: scm:git:git:@github.com:openshiftio/booster-parent.git/product-catalog
+    fabric8.io/scm-tag: booster-parent-11
+  labels:
+    expose: "true"
+    app: product-catalog
+    provider: fabric8
+    version: 0.0.1-SNAPSHOT
+    group: com.redhat
+  name: product-catalog
+spec:
+  ports:
+  - name: http
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: product-catalog
+    provider: fabric8
+    group: com.redhat

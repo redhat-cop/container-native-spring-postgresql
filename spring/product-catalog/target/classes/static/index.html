@@ -1,0 +1,163 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Product Catalog CRUD - Spring Boot</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/wingcss/0.1.8/wing.min.css"/>
+    <style>
+        input[type=number] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            -webkit-transition: .5s;
+            transition: .5s;
+            outline: 0;
+            font-family: 'Open Sans', serif;
+        }
+    </style>
+    <!-- Load AngularJS -->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script type="text/javascript">
+      var app = angular.module("ProductManagement", []);
+
+      //Controller Part
+      app.controller("ProductManagementController", function ($scope, $http) {
+
+        //Initialize page with default data which is blank in this example
+        $scope.products = [];
+
+        $scope.form = {
+          id: "",
+          name: "",
+          description: "",
+          price: ""
+        };
+
+        //Now load the data from server
+        _refreshPageData();
+
+        //HTTP POST/PUT methods for add/edit products
+        $scope.update = function () {
+          var method = "";
+          var url = "";
+          var data = {};
+          if ($scope.form.id == "") {
+            //Id is absent so add products - POST operation
+            method = "POST";
+            url = '/product';
+            data.name = $scope.form.name;
+            data.description = $scope.form.description;
+            data.price = $scope.form.price;
+          } else {
+            //If Id is present, it's edit operation - PUT operation
+            method = "PUT";
+            url = '/product/' + $scope.form.id;
+            data.name = $scope.form.name;
+            data.description = $scope.form.description;
+            data.price = $scope.form.price;
+          }
+
+          $http({
+            method: method,
+            url: url,
+            data: angular.toJson(data),
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          }).then(_success, _error);
+        };
+
+        //HTTP DELETE- delete product by id
+        $scope.remove = function (product) {
+          $http({
+            method: 'DELETE',
+            url: '/product/' + product.itemId
+          }).then(_success, _error);
+        };
+
+        //In case of edit products, populate form with product data
+        $scope.edit = function (product) {
+          $scope.form.name = product.name;
+          $scope.form.id = product.itemId;
+          $scope.form.description = product.description;
+          $scope.form.price = product.price;
+        };
+
+          /* Private Methods */
+        //HTTP GET- get all products collection
+        function _refreshPageData() {
+          $http({
+            method: 'GET',
+            url: '/product'
+          }).then(function successCallback(response) {
+            $scope.products = response.data;
+          }, function errorCallback(response) {
+            console.log(response.statusText);
+          });
+        }
+
+        function _success(response) {
+          _refreshPageData();
+          _clearForm()
+        }
+
+        function _error(response) {
+          console.error(response.statusText);
+        }
+
+        //Clear the form
+        function _clearForm() {
+          $scope.form.name = "";
+          $scope.form.id = "";
+          $scope.form.description = "";
+          $scope.form.price = "";
+        }
+      });
+    </script>
+</head>
+<body ng-app="ProductManagement" ng-controller="ProductManagementController">
+
+<div class="container">
+    <h1>Product Catalog CRUD - Spring Boot</h1>
+    <p>
+        This application demonstrates how a Spring Boot application implements a CRUD endpoint to manage <em>products</em>.
+        This management interface invokes the CRUD service endpoint, that interact with a PosgreSQL database using JPA.
+    </p>
+
+    <h3>Add/Edit a product</h3>
+    <form ng-submit="update()">
+        <div class="row">
+            <div class="col-6"><input type="text" placeholder="ItemId" ng-model="form.id" size="60" readonly="readonly"/></div>
+        </div>
+        <div class="row">
+            <div class="col-6"><input type="text" placeholder="Name" ng-model="form.name" size="60"/></div>
+        </div>
+        <div class="row">
+            <div class="col-6"><input type="text" placeholder="Description" ng-model="form.description" size="60"/></div>
+        </div>
+        <div class="row">
+            <div class="col-6"><input type="text" placeholder="Price" ng-model="form.price" size="60"/></div>
+        </div>
+        <input type="submit" value="Save"/>
+    </form>
+
+    <h3>Product List</h3>
+    <div class="row">
+        <div class="col-2">Name</div>
+    </div>
+    <div class="row" ng-repeat="product in products">
+        <div class="col-1">{{ product.itemId }}</div>
+        <div class="col-2">{{ product.name }}</div>
+        <div class="col-4">{{ product.description }}</div>
+        <div class="col-2">${{ product.price }}</div>
+        <div class="col-3"><a ng-click="edit( product )" class="btn">Edit</a> <a ng-click="remove( product )" class="btn">Remove</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
