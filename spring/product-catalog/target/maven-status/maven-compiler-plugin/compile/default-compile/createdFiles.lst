@@ -1,6 +1,0 @@
-com/redhat/productcatalog/repositories/ProductRepository.class
-com/redhat/productcatalog/controllers/ProductCatalogController.class
-com/redhat/productcatalog/interfaces/ProductCatalog.class
-com/redhat/productcatalog/entities/Product.class
-com/redhat/productcatalog/ProductCatalogApplication.class
-com/redhat/productcatalog/services/ProductCatalogService.class
