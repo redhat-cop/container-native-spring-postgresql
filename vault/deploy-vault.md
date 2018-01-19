@@ -1,4 +1,4 @@
-#Install Vault CLI
+# Install Vault CLI
 ```
 curl -o /tmp/vault_0.9.1_linux_amd64.zip https://releases.hashicorp.com/vault/0.9.1/vault_0.9.1_linux_amd64.zip?_ga=2.50315055.849435059.1516247977-364835320.1511883273 
 unzip /tmp/vault_0.9.1_linux_amd64.zip -d /tmp
