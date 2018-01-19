@@ -1,0 +1,62 @@
+== CRUD - Spring Boot - Sample Product inventroy
+
+IMPORTANT: You can run and interact with this application on localhost. This application runs when deployed on OpenShift with a PostgreSQL database. For more details on using this application with a single-node OpenShift cluster refer below. This application requires Java 8 JDK or greater and Maven 3.3.x or greater.
+
+This application requires the product catalog application to be deployed and running as it makes rest calls to it to get the product name.
+
+== Running the Application on a Single-node OpenShift Cluster
+If you have a single-node OpenShift cluster, such as Minishift or the Red Hat Container Development Kit, link:http://appdev.openshift.io/docs/minishift-installation.html[installed and running], you can also deploy your application there. A single-node OpenShift cluster provides you with access to a cloud environment that is similar to a production environment.
+
+To deploy your application to a running single-node OpenShift cluster:
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ oc login -u developer -p developer
+
+$ oc new-project MY_PROJECT_NAME
+
+$ oc new-app -e POSTGRESQL_USER=luke -ePOSTGRESQL_PASSWORD=secret -ePOSTGRESQL_DATABASE=my_data openshift/postgresql-92-centos7 --name=my-database
+
+# Wait for `product-catalog-database` application to be running.
+
+$ mvn clean fabric8:deploy -Popenshift
+----
+
+== Interacting with the Application on a Single-node OpenShift Cluster
+
+To interact with your booster while it's running on a Single-node OpenShift Cluster, you first need to obtain it's URL:
+
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ oc get route MY_APP_NAME -o jsonpath={$.spec.host}
+
+MY_APP_NAME-MY_PROJECT_NAME.LOCAL_OPENSHIFT_HOSTNAME
+----
+
+
+You can use the form at your application's url or you can use the `curl` command:
+
+.List all entries in the database
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ curl http://MY_APP_NAME-MY_PROJECT_NAME.LOCAL_OPENSHIFT_HOSTNAME/inventory
+
+----
+
+.Retrieve an entry with a specific ID
+[source,bash,options="nowrap",subs="attributes+"]
+----
+curl http://MY_APP_NAME-MY_PROJECT_NAME.LOCAL_OPENSHIFT_HOSTNAME/inventory/{invId}
+
+----
+
+.Delete an Entry:
+[source,bash,options="nowrap",subs="attributes+"]
+----
+curl -X DELETE http://MY_APP_NAME-MY_PROJECT_NAME.LOCAL_OPENSHIFT_HOSTNAME/inventory/{invId}
+----
+
+NOTE: If you receive an HTTP Error code `503` as a response after executing these commands, it means that the application is not ready yet.
+
+
+== More Information
+
