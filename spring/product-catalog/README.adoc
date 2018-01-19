@@ -14,7 +14,7 @@ $ oc login -u developer -p developer
 
 $ oc new-project MY_PROJECT_NAME
 
-$ oc new-app -e POSTGRESQL_USER=dbuser -ePOSTGRESQL_PASSWORD=dbsecret -ePOSTGRESQL_DATABASE=products openshift/postgresql-92-centos7 --name=product-catalog-database
+$ oc new-app -e POSTGRESQL_USER=luke -ePOSTGRESQL_PASSWORD=secret -ePOSTGRESQL_DATABASE=my_data openshift/postgresql-92-centos7 --name=my-database
 
 # Wait for `product-catalog-database` application to be running.
 
