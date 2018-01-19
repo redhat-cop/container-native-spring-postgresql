@@ -1,0 +1,104 @@
+apiVersion: v1
+kind: Template
+metadata:
+  name: postgres-operator-template
+objects:
+- apiVersion: v1
+  kind: DeploymentConfig
+  metadata:
+    name: postgres-operator
+  spec:
+    replicas: 1
+    template:
+      metadata:
+        labels:
+          name: postgres-operator
+      spec:
+        initContainers:
+        - name: init
+          image: registry.access.redhat.com/rhel7-atomic   
+          command: ['/bin/bash']
+          args: ['-c', "cp /certs/tls.key /merged/server.key && cp /certs/tls.crt /merged/server.crt && cp -L /config/* /merged"]
+          volumeMounts:
+          - mountPath: /config
+            name: apiserver-conf
+          - name: service-certs
+            mountPath: /certs
+          - name: merged-conf
+            mountPath: /merged            
+        containers:
+        - env:
+          - name: DEBUG
+            value: "true"
+          image: crunchydata/pgo-apiserver:${CO_IMAGE_TAG}
+          imagePullPolicy: IfNotPresent
+          name: apiserver
+          ports:
+          - containerPort: 8443
+            protocol: TCP
+          volumeMounts:
+          - mountPath: /config
+            name: merged-conf
+            readOnly: true
+          - mountPath: /operator-conf
+            name: operator-conf
+            readOnly: true
+        - env:
+          - name: CCP_IMAGE_PREFIX
+            value: crunchydata
+          - name: CO_IMAGE_PREFIX
+            value: crunchydata
+          - name: CO_IMAGE_TAG
+            value: ${CO_IMAGE_TAG}
+          - name: DEBUG
+            value: "true"
+          - name: NAMESPACE
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+          - name: MY_POD_NAME
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.name
+          image: crunchydata/postgres-operator:${CO_IMAGE_TAG}
+          name: operator
+          volumeMounts:
+          - mountPath: /operator-conf
+            name: operator-conf
+            readOnly: true
+        volumes:
+        - emptyDir: {}
+          name: merged-conf
+        - configMap:
+            defaultMode: 420
+            name: operator-conf
+          name: operator-conf
+        - configMap:
+            defaultMode: 420
+            name: apiserver-conf
+          name: apiserver-conf
+        - name: service-certs
+          secret:
+            secretName: service-certs          
+- apiVersion: v1
+  kind: Service
+  metadata:
+    name: postgres-operator
+    annotations:
+      service.alpha.openshift.io/serving-cert-secret-name: service-certs
+  spec:
+    ports:
+    - name: apiserver
+      port: 8443
+      protocol: TCP
+      targetPort: 8443
+    selector:
+      name: postgres-operator
+    type: ClusterIP
+parameters:
+- description: image tag
+  value: centos7-2.4
+  required: true
+  name: CO_IMAGE_TAG   
