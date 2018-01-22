@@ -12,8 +12,9 @@ Pick a working directory on your system where Istio can be pulled down and used 
 These commands have also been tested on a 1-node deployment using `oc cluster up`.
 
 ```
+oc login -u system:admin
+
 oc new-project istio-system
-oc project istio-system
 
 oc adm policy add-scc-to-user anyuid -z istio-ingress-service-account
 oc adm policy add-scc-to-user privileged -z istio-ingress-service-account
@@ -42,6 +43,10 @@ oc expose svc prometheus
 ```
 
 Do `oc get pod` to make sure everything is up and running.
+
+Add a user to the project so they can access from Web Console.
+
+```oc adm policy add-role-to-user admin <YOUR USER>```
 
 References
 ----------
