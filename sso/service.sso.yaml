@@ -124,6 +124,9 @@ items:
           - name: https
             containerPort: 8443
             protocol: TCP
+          - name: ping
+            containerPort: 8888
+            protocol: TCP
           env:
           - name: DB_SERVICE_PREFIX_MAPPING
             value: sso-postgresql=DB
@@ -176,6 +179,10 @@ items:
           - name: SSO_TRUSTSTORE_DIR
             value: "/etc/sso-secret-volume"
           - name: SSO_TRUSTSTORE_PASSWORD
+          - name: JGROUPS_PING_PROTOCOL
+            value: "openshift.KUBE_PING"
+          - name: OPENSHIFT_KUBE_PING_PORT_NAME
+            value: "ping"
           - name: OPENSHIFT_KUBE_PING_NAMESPACE
             value: "istio-system"
           - name: OPENSHIFT_KUBE_PING_LABELS
