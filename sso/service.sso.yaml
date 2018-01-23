@@ -150,7 +150,7 @@ items:
           - name: HOSTNAME_HTTP
           - name: HOSTNAME_HTTPS
           - name: SSO_IMPORT_FILE
-            value: "/opt/sso-demo/sso-demo.json"
+#            value: "/opt/sso-demo/sso-demo.json"
           - name: HTTPS_KEYSTORE_DIR
             value: "/etc/eap-secret-volume"
           - name: HTTPS_KEYSTORE
