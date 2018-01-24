@@ -21,7 +21,7 @@ This sample application is comprised of:
 
 The application has the following architecture:
 
-TODO add diagram here
+![Architecture](architecture.png)
 
 ## Assumptions:
 1. You have an OpenShift Container Platform cluster >= 3.7
