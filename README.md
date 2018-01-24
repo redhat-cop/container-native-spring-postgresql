@@ -32,11 +32,11 @@ The application has the following architecture:
 Here are the steps for the installation:
 
 1. Build and deploy the application
-2. Deploy the crunchy postgresql operator
-3. Deploy postgresql in HA
+2. [Deploy the Crunchy Postgres operator](./crunchy/deploy-crunchy.md)
+3. [Deploy Postgres in HA](./crunchy/deploy-HA-db.md)
 4. [Deploy Hashicorp Vault](./vault/deploy-vault.md)
 5. [Configure Vault to use Kubernetes backend authentication](./vault/vault-kube-backend.md)
-6. Configure Vault to manage the postgresql DB
+6. [Configure Vault to manage the postgresql DB](./vault/vault-postgres.md)
 7. Configure application to use Vault to retrieve the postgresql account
 8. RH SSO installation
 9. Istio core installation
