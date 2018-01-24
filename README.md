@@ -1,14 +1,33 @@
-# container-native-spring-postgresql
+# Container Native Microservices with OpenShift Sample Application
 
-This tutorial shows the steps to install create a container native architecture and run in it a simple application.
-The application has the following architecture
+This tutorial shows the steps to install and run a Spring Boot microservice with PostgreSQL in a container-native way. 
+
+This sample application is comprised of:
+
+* Spring Boot 1.5 with RHOAR for microservices *(In Progress)*
+* Red Hat SSO 7.1 (a.k.a. Keycloak 2.5.5) for user management, authentication with JWT
+  * Scalable, High Availability configuration using Kube Ping
+  * Persistence with PostgreSQL
+  * Pre-configured Realms for quick setup *(TODO)*
+* Istio 0.4 (latest) for service mesh and security *(In Progress)*
+  * Injection of Envoy/Istio sidecar proxy into microservice pod
+  * Authorization of web service access via JWT and SSO with Istio Mixer rule
+* Prometheus (Istio Integration)
+* Zipkin (Istio Integration)
+* Grafana (Istio Integration)
+* Service Graph (Istio Integration)
+* Hashicorp Vault for managing secrets *(In Progress)*
+* Crunchy DB for High Availability PostgreSQL *(In Progress)*
+
+The application has the following architecture:
 
 TODO add diagram here
 
-Assumptions:
-1. you have an OpenShift cluster >= 3.7
-2. you have dynamic volume provisioning available
-3. you are running the network policy plugin.
+## Assumptions:
+1. You have an OpenShift Container Platform cluster >= 3.7
+2. You have dynamic volume provisioning available
+   * This is available by default with Minishift and `oc cluster up`
+3. You are running the network policy plugin.
 
 Here are the steps for the installation:
 
