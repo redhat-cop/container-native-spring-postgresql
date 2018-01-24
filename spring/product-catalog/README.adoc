@@ -10,9 +10,9 @@ If you have a single-node OpenShift cluster, such as Minishift or the Red Hat Co
 To deploy your application to a running single-node OpenShift cluster:
 [source,bash,options="nowrap",subs="attributes+"]
 ----
-$ oc login -u developer -p developer
+$ oc login -u {anyuser} -p {anypassword}
 
-$ oc new-project myproject
+$ oc new-project product
 
 $ oc new-app -e POSTGRESQL_USER=luke -ePOSTGRESQL_PASSWORD=secret -ePOSTGRESQL_DATABASE=my_data openshift/postgresql-92-centos7 --name=my-database
 
@@ -27,9 +27,9 @@ To interact with your booster while it's running on a Single-node OpenShift Clus
 
 [source,bash,options="nowrap",subs="attributes+"]
 ----
-$ oc get route myproject -o jsonpath={$.spec.host}
+$ oc get route product -o jsonpath={$.spec.host}
 
-product-catalog-myproject.LOCAL_OPENSHIFT_HOSTNAME
+product-catalog-product.LOCAL_OPENSHIFT_HOSTNAME
 ----
 
 
@@ -38,14 +38,14 @@ You can use the form at your application's url or you can use the `curl` command
 .List all entries in the database
 [source,bash,options="nowrap",subs="attributes+"]
 ----
-$ curl http://product-catalog-myproject.LOCAL_OPENSHIFT_HOSTNAME/product
+$ curl http://product-catalog-product.LOCAL_OPENSHIFT_HOSTNAME/product
 
 ----
 
 .Retrieve an entry with a specific ID
 [source,bash,options="nowrap",subs="attributes+"]
 ----
-curl http://product-catalog-myproject.LOCAL_OPENSHIFT_HOSTNAME/product/{itemId}
+curl http://product-catalog-product.LOCAL_OPENSHIFT_HOSTNAME/product/{itemId}
 
 ----
 
@@ -53,7 +53,7 @@ curl http://product-catalog-myproject.LOCAL_OPENSHIFT_HOSTNAME/product/{itemId}
 .Create a new entry:
 [source,bash,options="nowrap",subs="attributes+"]
 ----
-curl -H "Content-Type: application/json" -X POST -d '{"name":"Product", "description" : "Product Description", "price" : "10.00"}'  http://product-catalog-myproject.LOCAL_OPENSHIFT_HOSTNAME/product
+curl -H "Content-Type: application/json" -X POST -d '{"name":"Product", "description" : "Product Description", "price" : "10.00"}'  http://product-catalog-product.LOCAL_OPENSHIFT_HOSTNAME/product
 
 ----
 
@@ -61,7 +61,7 @@ curl -H "Content-Type: application/json" -X POST -d '{"name":"Product", "descrip
 .Update an Entry
 [source,bash,options="nowrap",subs="attributes+"]
 ----
-curl -H "Content-Type: application/json" -X PUT -d '{"itemId":"354255", "name":"Product", "description" : "Product Description", "price" : "10.00"}'   http://product-catalog-myproject.LOCAL_OPENSHIFT_HOSTNAME/product/(itemId)
+curl -H "Content-Type: application/json" -X PUT -d '{"itemId":"354255", "name":"Product", "description" : "Product Description", "price" : "10.00"}'   http://product-catalog-product.LOCAL_OPENSHIFT_HOSTNAME/product/(itemId)
 
 ----
 
@@ -69,7 +69,7 @@ curl -H "Content-Type: application/json" -X PUT -d '{"itemId":"354255", "name":"
 .Delete an Entry:
 [source,bash,options="nowrap",subs="attributes+"]
 ----
-curl -X DELETE http://product-catalog-myproject.LOCAL_OPENSHIFT_HOSTNAME/product/{itemId}
+curl -X DELETE http://product-catalog-product.LOCAL_OPENSHIFT_HOSTNAME/product/{itemId}
 ----
 
 NOTE: If you receive an HTTP Error code `503` as a response after executing these commands, it means that the application is not ready yet.
