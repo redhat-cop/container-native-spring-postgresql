@@ -4,6 +4,8 @@ Install Red Hat SSO 7.1 with PostgreSQL Persistent Volume
 Setup
 -----
 
+Change OPENSHIFT_KUBE_PING_NAMESPACE to be your target namespace in sso/service.sso.yaml
+
 ```
 oc create -n openshift -f https://raw.githubusercontent.com/jboss-openshift/application-templates/master/jboss-image-streams.json
 
@@ -12,6 +14,9 @@ oc create -f sso/service.sso.yaml
 oc policy add-role-to-user view system:serviceaccount:$(oc project -q):sso-service-account
 ```
 
+Login
+-----
+admin/2ukFR5Kh
 
 References
 ------

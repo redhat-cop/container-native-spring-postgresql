@@ -12,16 +12,18 @@ This sample application is comprised of:
 * Istio 0.4 (latest) for service mesh and security *(In Progress)*
   * Injection of Envoy/Istio sidecar proxy into microservice pod
   * Authorization of web service access via JWT and SSO with Istio Mixer rule
+  * Mutual TLS
+* Microsegmentation Rules (TODO)
 * Prometheus (Istio Integration)
 * Zipkin (Istio Integration)
 * Grafana (Istio Integration)
 * Service Graph (Istio Integration)
 * Hashicorp Vault for managing secrets *(In Progress)*
-* Crunchy DB for High Availability PostgreSQL *(In Progress)*
+* Crunchy Operator for High Availability PostgreSQL *(In Progress)*
 
 The application has the following architecture:
 
-TODO add diagram here
+![Architecture](architecture.png)
 
 ## Assumptions:
 1. You have an OpenShift Container Platform cluster >= 3.7
@@ -31,17 +33,18 @@ TODO add diagram here
 
 Here are the steps for the installation:
 
-1. Build and deploy the application
-2. [Deploy the Crunchy Postgres operator](./crunchy/deploy-cruncy.md)
+
+1. [Build and deploy the application](./spring/README.md)
+2. [Deploy the Crunchy Postgres operator](./crunchy/deploy-crunchy.md)
 3. [Deploy Postgres in HA](./crunchy/deploy-HA-db.md)
 4. [Deploy Hashicorp Vault](./vault/deploy-vault.md)
 5. [Configure Vault to use Kubernetes backend authentication](./vault/vault-kube-backend.md)
 6. [Configure Vault to manage the postgresql DB](./vault/vault-postgres.md)
 7. Configure application to use Vault to retrieve the postgresql account
-8. RH SSO installation
-9. Istio core installation
+8. [RH SSO installation](./sso/README.md)
+9. [Istio core installation](./istio/README.md)
 10. Configure app to use Istio
 11. Configure Istio to do Mutual TLS authentication
 12. Configure istio to do OAuth Authentication via RH SSO
-13. Istio Add-ons installation (prometheus, Jaeger)
+13. [Istio Add-ons installation (prometheus, Jaeger)](./istio/README.md)
 14. Configure microsegmentation

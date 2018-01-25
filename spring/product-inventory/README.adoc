@@ -10,11 +10,11 @@ If you have a single-node OpenShift cluster, such as Minishift or the Red Hat Co
 To deploy your application to a running single-node OpenShift cluster:
 [source,bash,options="nowrap",subs="attributes+"]
 ----
-$ oc login -u developer -p developer
+$ oc login -u {anyuser} -p {anypassword}
 
 #If project doens't already exist
 
-$ oc new-project myproject  
+$ oc new-project product  
 
 $ oc new-app -e POSTGRESQL_USER=luke -ePOSTGRESQL_PASSWORD=secret -ePOSTGRESQL_DATABASE=my_data openshift/postgresql-92-centos7 --name=my-database
 
@@ -31,7 +31,7 @@ To interact with your booster while it's running on a Single-node OpenShift Clus
 ----
 $ oc get route product-inventory -o jsonpath={$.spec.host}
 
-product-inventory-myproject.LOCAL_OPENSHIFT_HOSTNAME
+product-inventory-product.LOCAL_OPENSHIFT_HOSTNAME
 ----
 
 
@@ -40,21 +40,21 @@ You can use the form at your application's url or you can use the `curl` command
 .List all entries in the database
 [source,bash,options="nowrap",subs="attributes+"]
 ----
-$ curl http://product-inventory-myproject.LOCAL_OPENSHIFT_HOSTNAME/inventory
+$ curl http://product-inventory-product.LOCAL_OPENSHIFT_HOSTNAME/inventory
 
 ----
 
 .Retrieve an entry with a specific ID
 [source,bash,options="nowrap",subs="attributes+"]
 ----
-curl http://product-inventory-myproject.LOCAL_OPENSHIFT_HOSTNAME/inventory/{invId}
+curl http://product-inventory-product.LOCAL_OPENSHIFT_HOSTNAME/inventory/{invId}
 
 ----
 
 .Delete an Entry:
 [source,bash,options="nowrap",subs="attributes+"]
 ----
-curl -X DELETE http://product-inventory-myproject.LOCAL_OPENSHIFT_HOSTNAME/inventory/{invId}
+curl -X DELETE http://product-inventory-product.LOCAL_OPENSHIFT_HOSTNAME/inventory/{invId}
 ----
 
 NOTE: If you receive an HTTP Error code `503` as a response after executing these commands, it means that the application is not ready yet.
