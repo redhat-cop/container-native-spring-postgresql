@@ -184,7 +184,7 @@ items:
           - name: OPENSHIFT_KUBE_PING_PORT_NAME
             value: "ping"
           - name: OPENSHIFT_KUBE_PING_NAMESPACE
-            value: "istio-system"
+            value: "myproject"
           - name: OPENSHIFT_KUBE_PING_LABELS
             value: "application=sso"
         volumes:
@@ -243,6 +243,21 @@ items:
     resources:
       requests:
         storage: 1Gi
+
+- apiVersion: v1
+  kind: Service
+  metadata:
+    name: sso-postgresql
+    labels:
+      application: sso
+      component: server
+  spec:
+    ports:
+    - port: 5432
+      targetPort: 5432
+    selector:
+      deploymentConfig: sso-postgresql
+
 - apiVersion: v1
   kind: DeploymentConfig
   metadata:
