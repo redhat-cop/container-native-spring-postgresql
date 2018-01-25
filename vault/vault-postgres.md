@@ -22,7 +22,9 @@ Create a policy that allows to read from role pg-readwrite
 export VAULT_TOKEN=$ROOT_TOKEN
 vault policy-write -tls-skip-verify pg-readwrite ./vault/app-policy.hcl 
 ```
-Bind the policy to the `app-name` role.
+Bind the policy to the `product-catalog` and the `product-inventory` role.
 ```
-vault write -tls-skip-verify auth/kubernetes/role/app-name bound_service_account_names=default bound_service_account_namespaces='*' policies=pg-readwrite ttl=1h 
+vault write -tls-skip-verify auth/kubernetes/role/product-catalog bound_service_account_names=default bound_service_account_namespaces='*' policies=pg-readwrite ttl=1h 
+
+vault write -tls-skip-verify auth/kubernetes/role/product-inventory bound_service_account_names=default bound_service_account_namespaces='*' policies=pg-readwrite ttl=1h 
 ```
