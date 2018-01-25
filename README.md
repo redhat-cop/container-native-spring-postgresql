@@ -32,7 +32,7 @@ TODO add diagram here
 Here are the steps for the installation:
 
 1. Build and deploy the application
-2. [Deploy the Crunchy Postgres operator](./crunchy/deploy-crunchy.md)
+2. [Deploy the Crunchy Postgres operator](./crunchy/deploy-cruncy.md)
 3. [Deploy Postgres in HA](./crunchy/deploy-HA-db.md)
 4. [Deploy Hashicorp Vault](./vault/deploy-vault.md)
 5. [Configure Vault to use Kubernetes backend authentication](./vault/vault-kube-backend.md)
