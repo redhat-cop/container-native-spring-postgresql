@@ -1,13 +1,15 @@
 # configure the prostresql database secret backend
 
 ```
-vault write database/config/postgresql \
+vault mount -tls-skip-verify database
+
+vault write -tls-skip-verify database/config/postgresql \
     plugin_name=postgresql-database-plugin \
     allowed_roles="pg-readwrite" \
-    connection_url="postgresql://postgres:admin@postgres-ha.pgo.svc.cluster.local:5432/"
+    connection_url="postgresql://postgres:admin@postgres-ha.pgo.svc.cluster.local:5432/<db>?sslmode=disable"
     
-vault write database/roles/pg-readwrite \
-    db_name=postgresql \
+vault write -tls-skip-verify database/roles/pg-readwrite \
+    db_name=<db> \
     creation_statements="CREATE ROLE \"{{name}}\" WITH LOGIN PASSWORD '{{password}}' VALID UNTIL '{{expiration}}'; \
         GRANT ALL_PRIVILEGES ON ALL TABLES IN SCHEMA public TO \"{{name}}\";" \
     default_ttl="1h" \
@@ -15,10 +17,10 @@ vault write database/roles/pg-readwrite \
     
 ```
 
-Create a policy that allows the spring-example role to read only from the spring-example generic backend
+Create a policy that allows to read from role pg-readwrite
 ```
 export VAULT_TOKEN=$ROOT_TOKEN
-vault policy-write -tls-skip-verify pg-read-write ./vault/app-policy.hcl 
+vault policy-write -tls-skip-verify pg-readwrite ./vault/app-policy.hcl 
 ```
 Bind the policy to the `app-name` role.
 ```
