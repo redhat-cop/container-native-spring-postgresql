@@ -34,17 +34,17 @@ The application has the following architecture:
 Here are the steps for the installation:
 
 
-1. [Build and deploy the application](./spring/README.md)
-2. [Deploy the Crunchy Postgres operator](./crunchy/deploy-crunchy.md)
-3. [Deploy Postgres in HA](./crunchy/deploy-HA-db.md)
-4. [Deploy Hashicorp Vault](./vault/deploy-vault.md)
-5. [Configure Vault to use Kubernetes backend authentication](./vault/vault-kube-backend.md)
-6. [Configure Vault to manage the postgresql DB](./vault/vault-postgres.md)
-7. Configure application to use Vault to retrieve the postgresql account
-8. [RH SSO installation](./sso/README.md)
-9. [Istio core installation](./istio/README.md)
-10. Configure app to use Istio
-11. Configure Istio to do Mutual TLS authentication
-12. Configure istio to do OAuth Authentication via RH SSO
-13. [Istio Add-ons installation (prometheus, Jaeger)](./istio/README.md)
-14. Configure microsegmentation
+1. [Deploy the Crunchy Postgres operator](./crunchy/deploy-crunchy.md)
+2. [Deploy Postgres in HA](./crunchy/deploy-HA-db.md)
+3. [Deploy Hashicorp Vault](./vault/deploy-vault.md)
+4. [Configure Vault to use Kubernetes backend authentication](./vault/vault-kube-backend.md)
+5. [Configure Vault to manage the postgresql DB](./vault/vault-postgres.md)
+6. Configure application to use Vault to retrieve the postgresql account
+7. [RH SSO installation](./sso/README.md)
+8. [Istio core installation](./istio/README.md)
+9. Configure app to use Istio
+10. Configure Istio to do Mutual TLS authentication
+11. Configure istio to do OAuth Authentication via RH SSO
+12. [Istio Add-ons installation (prometheus, Jaeger)](./istio/README.md)
+13. Configure microsegmentation
+14. [Build and deploy the application](./spring/README.md)
