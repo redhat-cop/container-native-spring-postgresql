@@ -1,0 +1,37 @@
+== CRUD - Spring Boot - Sample Product inventroy
+
+IMPORTANT: This application runs when deployed on OpenShift with a PostgreSQL database. For more details on using this application with a single-node OpenShift cluster refer below. This application requires Java 8 JDK or greater and Maven 3.3.x or greater.
+
+This application requires the product inventory application to be deployed and running as it makes rest calls to it to get the inventory records from a secured endpoint.
+
+== Running the Application on a Single-node OpenShift Cluster
+If you have a single-node OpenShift cluster, such as Minishift or the Red Hat Container Development Kit, link:http://appdev.openshift.io/docs/minishift-installation.html[installed and running], you can also deploy your application there. A single-node OpenShift cluster provides you with access to a cloud environment that is similar to a production environment.
+
+To deploy your application to a running single-node OpenShift cluster:
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ oc login -u {anyuser} -p {anypassword}
+
+#If project doens't already exist
+
+$ oc new-project product  
+
+$ mvn clean fabric8:deploy -Popenshift -DSSO_AUTH_SERVER_URL=$(oc get route secure-sso -o jsonpath='{"https://"}{.spec.host}{"/auth"}') -DPRODUCT_INVENTORY_SERVICE_URL=$(oc get route product-inventory -o jsonpath='{"http://"}{.spec.host}')
+----
+
+== Interacting with the Application on a Single-node OpenShift Cluster
+
+To interact with your booster while it's running on a Single-node OpenShift Cluster, you first need to obtain it's URL:
+
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ oc get route product-frontend -o jsonpath={$.spec.host}
+
+product-frontend-product.LOCAL_OPENSHIFT_HOSTNAME
+----
+
+Open this link in the brwoser to access the UI
+
+
+== More Information
+
