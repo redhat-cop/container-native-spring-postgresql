@@ -32,14 +32,6 @@ export PATH="$PATH:~/$ISTIO/bin"
 cd $ISTIO
 oc apply -f install/kubernetes/istio.yaml
 
-oc create -f install/kubernetes/addons/prometheus.yaml
-oc create -f install/kubernetes/addons/grafana.yaml
-oc create -f install/kubernetes/addons/servicegraph.yaml
-oc create -f install/kubernetes/addons/zipkin.yaml
-oc expose svc grafana
-oc expose svc servicegraph
-oc expose svc zipkin
-oc expose svc prometheus
 ```
 
 Do `oc get pod` to make sure everything is up and running.
