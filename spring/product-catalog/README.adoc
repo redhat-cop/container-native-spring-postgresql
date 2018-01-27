@@ -10,13 +10,9 @@ If you have a single-node OpenShift cluster, such as Minishift or the Red Hat Co
 To deploy your application to a running single-node OpenShift cluster:
 [source,bash,options="nowrap",subs="attributes+"]
 ----
-$ oc login -u {anyuser} -p {anypassword}
+# Login with a user that can create a project
 
 $ oc new-project product
-
-$ oc new-app -e POSTGRESQL_USER=luke -ePOSTGRESQL_PASSWORD=secret -ePOSTGRESQL_DATABASE=my_data openshift/postgresql-92-centos7 --name=my-database
-
-# Wait for `my-database` application to be running.
 
 $ mvn clean fabric8:deploy -Popenshift -DskipTests 
 ----
