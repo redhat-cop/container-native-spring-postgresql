@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,8 +36,8 @@ public class ProductInventoryController {
 	}
 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<InventoryDTO> showProductList() throws JsonProcessingException, IOException {
-		return inventoryService.showInventoryList();
+	public List<InventoryDTO> showProductList(@RequestHeader("Authorization") String token) throws JsonProcessingException, IOException {
+		return inventoryService.showInventoryList(token);
 	}
 
 	@GetMapping(value="/{invId}", produces = MediaType.APPLICATION_JSON_VALUE)

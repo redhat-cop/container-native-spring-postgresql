@@ -1,0 +1,21 @@
+spring.application.name: product-catalog
+logging.level.org.springframework: debug  
+spring.cloud.vault:
+    host: vault.myproject.svc.cluster.local
+    port: ${vault.service.port}
+    scheme: https
+    authentication: KUBERNETES
+    kubernetes:
+        role: product-catalog
+        service-account-token-file: /var/run/secrets/kubernetes.io/serviceaccount/token
+    config:
+        order: 10
+    generic:
+      enabled: false
+    postgresql:
+        enabled: true
+        role: pg-readwrite
+        backend: database
+        username-property: spring.datasource.username
+        password-property: spring.datasource.username
+

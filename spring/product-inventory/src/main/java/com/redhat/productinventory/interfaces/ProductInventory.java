@@ -8,13 +8,6 @@ import com.redhat.productinventory.dtos.InventoryDTO;
 import com.redhat.productinventory.entities.Inventory;
 
 public interface ProductInventory {
-
-	/**
-	 * @return
-	 * @throws IOException 
-	 * @throws JsonProcessingException 
-	 */
-	List<InventoryDTO> showInventoryList() throws JsonProcessingException, IOException;
 	
 	/**
 	 * @param invId
@@ -41,5 +34,13 @@ public interface ProductInventory {
 	 * @return
 	 */
 	Inventory updateInventory(long invId, Inventory inventory);
+
+	/**
+	 * @param principal
+	 * @return
+	 * @throws JsonProcessingException
+	 * @throws IOException
+	 */
+	List<InventoryDTO> showInventoryList(String token) throws JsonProcessingException, IOException;
 	
 }

@@ -18,7 +18,7 @@ $ oc new-app -e POSTGRESQL_USER=luke -ePOSTGRESQL_PASSWORD=secret -ePOSTGRESQL_D
 
 # Wait for `my-database` application to be running.
 
-$ mvn clean fabric8:deploy -Popenshift
+$ mvn clean fabric8:deploy -Popenshift -DskipTests 
 ----
 
 == Interacting with the Application on a Single-node OpenShift Cluster

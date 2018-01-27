@@ -7,6 +7,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -32,7 +35,10 @@ public class ProductInventoryService implements ProductInventory {
 	RestTemplate restTemplate;
 
 	@Override
-	public List<InventoryDTO> showInventoryList() throws JsonProcessingException, IOException {
+	public List<InventoryDTO> showInventoryList(String token) throws JsonProcessingException, IOException {
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Authorization", token);
+		HttpEntity<?> requestheaders = new HttpEntity<>(headers);
 		List<Inventory> invList = inventoryRepository.findAll();
 		List<InventoryDTO> inventory = new ArrayList<>();
 		for(Inventory inv : invList) {
@@ -40,7 +46,7 @@ public class ProductInventoryService implements ProductInventory {
 			invDTO.setInvId(inv.getInvId());
 			invDTO.setItemId(inv.getItemId());
 			invDTO.setQty(inv.getQty());
-			ResponseEntity<String> response = restTemplate.getForEntity(getURI() + "/" + inv.getItemId(), String.class);
+			ResponseEntity<String> response = restTemplate.exchange(getURI() + "/" + inv.getItemId(), HttpMethod.GET, requestheaders, String.class);
 			JsonNode rootNode = new ObjectMapper().readTree(response.getBody());
 			invDTO.setName(rootNode.get("name").textValue());
 			inventory.add(invDTO);
