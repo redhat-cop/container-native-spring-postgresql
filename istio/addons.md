@@ -2,29 +2,19 @@
 Istio Addons Installation
 ==================
 
-* Deploy additional add-ons, namely Prometheus, Grafana, Service Graph and Zipkin.
+* Deploy additional add-ons, namely Prometheus, Grafana, Service Graph and Jaeger.
 
 ```
-oc login -u system:admin
-
 oc project istio-system
 
-oc create -f install/kubernetes/addons/prometheus.yaml
-oc create -f install/kubernetes/addons/grafana.yaml
-oc create -f install/kubernetes/addons/servicegraph.yaml
-TODO: Jaeger
-oc create -f install/kubernetes/addons/zipkin.yaml
+oc apply -f https://raw.githubusercontent.com/istio/istio/0.4.0/install/kubernetes/addons/prometheus.yaml
+oc apply -f https://raw.githubusercontent.com/istio/istio/0.4.0/install/kubernetes/addons/grafana.yaml
+oc apply -f https://raw.githubusercontent.com/istio/istio/0.4.0/install/kubernetes/addons/servicegraph.yaml
+oc process -f https://raw.githubusercontent.com/jaegertracing/jaeger-openshift/master/all-in-one/jaeger-all-in-one-template.yml | oc apply -f -
 oc expose svc grafana
 oc expose svc servicegraph
-oc expose svc zipkin
 oc expose svc prometheus
 ```
-
-Do `oc get pod` to make sure everything is up and running.
-
-Add a user to the project so they can access from Web Console.
-
-```oc adm policy add-role-to-user admin <YOUR USER>```
 
 References
 ----------
