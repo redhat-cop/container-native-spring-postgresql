@@ -184,7 +184,7 @@ items:
           - name: OPENSHIFT_KUBE_PING_PORT_NAME
             value: "ping"
           - name: OPENSHIFT_KUBE_PING_NAMESPACE
-            value: "myproject"
+            value: "rh-sso"
           - name: OPENSHIFT_KUBE_PING_LABELS
             value: "application=sso"
         volumes:
