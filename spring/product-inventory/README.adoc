@@ -10,7 +10,6 @@ If you have a single-node OpenShift cluster, such as Minishift with openshift or
 To deploy your application to a running single-node OpenShift cluster:
 
 Note: You may have to modify the spring/product-inventory/src/main/fabric8/configmap.yml file to reflect the RH-SSO values for your environment
-[source,bash,options="nowrap",subs="attributes+"]
 
 The realm-key can be extracted by logging in to the RH-SSO admin console with admin credentials and Navigating to Realm settings under the sidebar under Master realm configure. click on the Keys tab, then click on the Public Key Button for type RSA to popup the key. 
 
@@ -29,7 +28,9 @@ data:
   resource: "inventoryservice"
   auth-server-url: "https://secure-sso-rh-sso.LOCAL_OPENSHIFT_HOSTNAME/auth"
   credentails-secret: "254deb12-6094-4860-ad1f-1b4aa3db62a0"
-
+----
+[source,bash,options="nowrap",subs="attributes+"]
+----
 # Login with a user that can create a project if already not created
 
 $ oc new-project product 
