@@ -118,6 +118,17 @@
 			<build>
 				<plugins>
 					<plugin>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<goals>
+									<goal>repackage</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
 						<groupId>io.fabric8</groupId>
 						<artifactId>fabric8-maven-plugin</artifactId>
 						<executions>
@@ -133,40 +144,6 @@
 					</plugin>
 				</plugins>
 			</build>
-		</profile>
-		<profile>
-			<id>openshift-it</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-failsafe-plugin</artifactId>
-						<executions>
-							<execution>
-								<goals>
-									<goal>integration-test</goal>
-									<goal>verify</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-			<activation />
-			<dependencies>
-				<dependency>
-					<groupId>io.fabric8</groupId>
-					<artifactId>kubernetes-client</artifactId>
-					<version>1.4.34</version>
-					<scope>test</scope>
-				</dependency>
-				<dependency>
-					<groupId>io.fabric8</groupId>
-					<artifactId>openshift-client</artifactId>
-					<version>1.4.34</version>
-					<scope>test</scope>
-				</dependency>
-			</dependencies>
 		</profile>
 	</profiles>
 </project>
