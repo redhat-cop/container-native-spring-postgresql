@@ -1,20 +1,26 @@
-== CRUD - Spring Boot - Sample Product catalog
+== CRUD - Spring Boot - Product catalog
 
-IMPORTANT: You can run and interact with this application on localhost. This application runs when deployed on OpenShift with a PostgreSQL database. For more details on using this booster with a single-node OpenShift cluster refer below. This application requires Java 8 JDK or greater and Maven 3.3.x or greater.
+IMPORTANT: For more details on using this application with a single-node OpenShift cluster refer below. This application requires Java 8 JDK or greater and Maven 3.3.x or greater.
 
 
 
 == Running the Booster on a Single-node OpenShift Cluster
-If you have a single-node OpenShift cluster, such as Minishift or the Red Hat Container Development Kit, link:http://appdev.openshift.io/docs/minishift-installation.html[installed and running], you can also deploy your application there. A single-node OpenShift cluster provides you with access to a cloud environment that is similar to a production environment.
+If you have a single-node OpenShift cluster, such as Minishift with openshift orign 3.7.x or the Red Hat Container Development Kit, link:http://appdev.openshift.io/docs/minishift-installation.html[installed and running], you can also deploy your application there. A single-node OpenShift cluster provides you with access to a cloud environment that is similar to a production environment.
 
 To deploy your application to a running single-node OpenShift cluster:
 [source,bash,options="nowrap",subs="attributes+"]
 ----
 # Login with a user that can create a project
 
-$ oc new-project product
+$ oc new-build registry.access.redhat.com/redhat-openjdk-18/openjdk18-openshift~https://github.com/murphye/container-native-spring-postgresql.git --context-dir=spring/product-catalog --name product-catalog 
 
-$ mvn clean fabric8:deploy -Popenshift -DskipTests 
+#From the git repo folder run the below commands:
+
+$ oc create -f ./spring/product-catalog/src/main/fabric8/service.yml 
+ 
+$ oc create -f ./spring/product-catalog/src/main/fabric8/route.yml
+
+$ oc create -f ./spring/product-catalog/src/main/fabric8/deploymentconfig.yml 
 ----
 
 == Interacting with the Application on a Single-node OpenShift Cluster
