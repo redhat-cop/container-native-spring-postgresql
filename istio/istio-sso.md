@@ -6,9 +6,6 @@
 * Authorization policy in place to intercept HTTP calls for application which will:
   * Validate JWT token
   * Make backend call to SSO/Keycloak to valide JWT signature based on public key (which may be cached)
-    * Validated calls being made to SSO under ideal circumstanced when changing SSO service to point to Apache to log the requests
-    * Have not confirmed JWT signature being validated correctly as I was still getting 401 unauthorized error
-* Ran into a myriad of stumbling blocks (bugs, no docs) which stunted progress
 
 ## Known Issues/Findings
 
