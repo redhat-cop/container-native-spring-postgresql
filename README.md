@@ -45,6 +45,6 @@ Here are the steps for the installation:
 9. Configure app to use Istio
 10. [Configure Istio to do Mutual TLS authentication](./istio/enabling-tls.md)
 11. Configure istio to do OAuth Authentication via RH SSO
-12. [Istio Add-ons installation (prometheus, Jaeger)](./istio/README.md)
+12. [Istio Add-ons installation (prometheus, Jaeger)](./istio/addons.md)
 13. Configure microsegmentation
 14. [Build and deploy the application](./spring/README.md)

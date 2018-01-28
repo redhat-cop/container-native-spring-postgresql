@@ -2,28 +2,27 @@
 
 IMPORTANT: For more details on using this application with a single-node OpenShift cluster refer below. This application requires Java 8 JDK or greater and Maven 3.3.x or greater.
 
-
-
-== Running the Booster on a Single-node OpenShift Cluster
-If you have a single-node OpenShift cluster, such as Minishift with openshift orign 3.7.x or the Red Hat Container Development Kit, link:http://appdev.openshift.io/docs/minishift-installation.html[installed and running], you can also deploy your application there. A single-node OpenShift cluster provides you with access to a cloud environment that is similar to a production environment.
+== Building Deploying and Running the Application
 
 To deploy your application to a running single-node OpenShift cluster:
 [source,bash,options="nowrap",subs="attributes+"]
 ----
-# Login with a user that can create a project
+# oc project product
+
+oc adm policy add-scc-to-user privileged -z default
 
 $ oc new-build registry.access.redhat.com/redhat-openjdk-18/openjdk18-openshift~https://github.com/murphye/container-native-spring-postgresql.git --context-dir=spring/product-catalog --name product-catalog 
 
 #From the git repo folder run the below commands:
 
-$ oc create -f ./spring/product-catalog/src/main/fabric8/service.yml 
+$ oc apply -f ./spring/product-catalog/src/main/fabric8/service.yml 
  
-$ oc create -f ./spring/product-catalog/src/main/fabric8/route.yml
+$ oc apply -f ./spring/product-catalog/src/main/fabric8/route.yml
 
-$ oc create -f ./spring/product-catalog/src/main/fabric8/deploymentconfig.yml 
+$ oc apply -f ./spring/product-catalog/src/main/fabric8/deploymentconfig.yml 
 ----
 
-== Interacting with the Application on a Single-node OpenShift Cluster
+== Interacting with the Application
 
 To interact with your booster while it's running on a Single-node OpenShift Cluster, you first need to obtain it's URL:
 
@@ -75,7 +74,3 @@ curl -X DELETE http://product-catalog-product.LOCAL_OPENSHIFT_HOSTNAME/product/{
 ----
 
 NOTE: If you receive an HTTP Error code `503` as a response after executing these commands, it means that the application is not ready yet.
-
-
-== More Information
-
