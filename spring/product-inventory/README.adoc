@@ -1,26 +1,50 @@
 == CRUD - Spring Boot - Sample Product inventroy
 
-IMPORTANT: You can run and interact with this application on localhost. This application runs when deployed on OpenShift with a PostgreSQL database. For more details on using this application with a single-node OpenShift cluster refer below. This application requires Java 8 JDK or greater and Maven 3.3.x or greater.
+IMPORTANT: For more details on using this application with a single-node OpenShift cluster refer below. This application requires Java 8 JDK or greater and Maven 3.3.x or greater.
 
 This application requires the product catalog application to be deployed and running as it makes rest calls to it to get the product name.
 
 == Running the Application on a Single-node OpenShift Cluster
-If you have a single-node OpenShift cluster, such as Minishift or the Red Hat Container Development Kit, link:http://appdev.openshift.io/docs/minishift-installation.html[installed and running], you can also deploy your application there. A single-node OpenShift cluster provides you with access to a cloud environment that is similar to a production environment.
+If you have a single-node OpenShift cluster, such as Minishift with openshift origin 3.7.x or the Red Hat Container Development Kit, link:http://appdev.openshift.io/docs/minishift-installation.html[installed and running], you can also deploy your application there. A single-node OpenShift cluster provides you with access to a cloud environment that is similar to a production environment.
 
 To deploy your application to a running single-node OpenShift cluster:
+
+Note: You may have to modify the spring/product-inventory/src/main/fabric8/configmap.yml file to reflect the RH-SSO values for your environment
 [source,bash,options="nowrap",subs="attributes+"]
+
+The realm-key can be extracted by logging in to the RH-SSO admin console with admin credentials and Navigating to Realm settings under the sidebar under Master realm configure. click on the Keys tab, then click on the Public Key Button for type RSA to popup the key. 
+
+Copy and paste in the configmap.yml if required.
+
+Navigate to Clients inventoryservice using the sidebar and click on the installation tab, select the Keyclock OIDC JSON from the Format Option drop down and copy paste the credentials_secret value and auth_server_url value in to the configmap.yml  
+
 ----
-$ oc login -u {anyuser} -p {anypassword}
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: keycloak-properties
+data:
+  realm: "master"
+  realm-key: "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApK2tpqCGfHb17H/1vrtnvuRV6+uomZozroMmKybOagBoDa0gfz/vB0yumLu8Ya389SRS/3vUiXt0cRuv6A2XWRhXKahRkQfec3fKQz9zp2k3NjpFbEMiFKI45dxdsijiHW1nLW/4v49Q0ND2edp1nvCn2tA9ETC74zz44cTZ58ca3B1x+4akk9UN5vJG3+xgzg6eipCpHPLvVUu0uptHCs9TzyY3pec3t20w8agQbUt1ZS55rutfQ6rQ3Ni0BFAMNzSghhq074yNBCe1C2LAf6UNJR8VNwL5ZAFvZGzvzYqVc2Xx9WAYLh+WVpemdDUiQKlB4dBtNQDc3exzAoHlMQIDAQAB"
+  resource: "inventoryservice"
+  auth-server-url: "https://secure-sso-rh-sso.LOCAL_OPENSHIFT_HOSTNAME/auth"
+  credentails-secret: "254deb12-6094-4860-ad1f-1b4aa3db62a0"
 
-#If project doens't already exist
+# Login with a user that can create a project if already not created
 
-$ oc new-project product  
+$ oc new-project product 
 
-$ oc new-app -e POSTGRESQL_USER=luke -ePOSTGRESQL_PASSWORD=secret -ePOSTGRESQL_DATABASE=my_data openshift/postgresql-92-centos7 --name=my-database
+$ oc new-build registry.access.redhat.com/redhat-openjdk-18/openjdk18-openshift~https://github.com/murphye/container-native-spring-postgresql.git --context-dir=spring/product-inventory --name product-inventory 
 
-# Wait for `my-database` application to be running.
+#From the git repo folder run the below commands:
 
-$ mvn clean fabric8:deploy -Popenshift
+$ oc create -f ./spring/product-inventory/src/main/fabric8/configmap.yml 
+
+$ oc create -f ./spring/product-inventory/src/main/fabric8/service.yml 
+ 
+$ oc create -f ./spring/product-inventory/src/main/fabric8/route.yml
+
+$ oc create -f ./spring/product-inventory/src/main/fabric8/deploymentconfig.yml 
 ----
 
 == Interacting with the Application on a Single-node OpenShift Cluster

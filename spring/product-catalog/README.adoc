@@ -12,6 +12,8 @@ To deploy your application to a running single-node OpenShift cluster:
 ----
 # Login with a user that can create a project
 
+$ oc new-project product
+
 $ oc new-build registry.access.redhat.com/redhat-openjdk-18/openjdk18-openshift~https://github.com/murphye/container-native-spring-postgresql.git --context-dir=spring/product-catalog --name product-catalog 
 
 #From the git repo folder run the below commands:

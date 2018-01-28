@@ -28,7 +28,7 @@ public class ProductInventoryService implements ProductInventory {
 	@Autowired
 	InventoryRepository inventoryRepository;
 
-	@Value("${service.product.name}")
+	@Value("${service.catalog.name}")
 	private String productServiceName;
 
 	@Autowired

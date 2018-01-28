@@ -3,8 +3,8 @@ apiVersion: v1
 metadata:
   name: keycloak-properties
 data:
-  realm: "demorealm"
-  realm-key: "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsxw1l9pzwXn0uelv3zgkwbZx1yNhDUxj/G7wUKb9B7WKLLqrat3XwUkoWmBh3BdJqX8/QGPu6jsQisM076b1ShlRK5z3nUqeP1A5J7x+pPep3n4ztjc05ilmiDkgqC1k/31jIXLsoGyNowFDJqy0pkleKpUURQCvy2/PtGg5dREuzXdJmKaj3EcnkVTbw89Wp5yUbgOMCAg8V2Dcl9naqVb6VlM8fpkDEwXjC1zqc3ouwr7HPVtU1hUUUHFq2IhHDnn9CZZIGwQ26WUPfusH3K2tue+hVoP6Fs5m4JGSg/NkHN4XMW9KijmSCJ8CSM4/IzZbMmw2lIOsFaYVCzRWawIDAQAB"
+  realm: "master"
+  realm-key: "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApK2tpqCGfHb17H/1vrtnvuRV6+uomZozroMmKybOagBoDa0gfz/vB0yumLu8Ya389SRS/3vUiXt0cRuv6A2XWRhXKahRkQfec3fKQz9zp2k3NjpFbEMiFKI45dxdsijiHW1nLW/4v49Q0ND2edp1nvCn2tA9ETC74zz44cTZ58ca3B1x+4akk9UN5vJG3+xgzg6eipCpHPLvVUu0uptHCs9TzyY3pec3t20w8agQbUt1ZS55rutfQ6rQ3Ni0BFAMNzSghhq074yNBCe1C2LAf6UNJR8VNwL5ZAFvZGzvzYqVc2Xx9WAYLh+WVpemdDUiQKlB4dBtNQDc3exzAoHlMQIDAQAB"
   resource: "inventoryservice"
-  auth-server-url: "https://secure-sso-myproject.192.168.42.67.nip.io/auth"
-  credentails-secret: "3b17e47e-9fc5-406b-9cb2-a7a6b8a87c41"
+  auth-server-url: "https://secure-sso-rh-sso.192.168.42.154.nip.io/auth"
+  credentails-secret: "254deb12-6094-4860-ad1f-1b4aa3db62a0"

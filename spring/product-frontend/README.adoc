@@ -16,7 +16,7 @@ $ oc login -u {anyuser} -p {anypassword}
 
 $ oc new-project product  
 
-$ mvn clean fabric8:deploy -Popenshift -DSSO_AUTH_SERVER_URL=$(oc get route secure-sso -o jsonpath='{"https://"}{.spec.host}{"/auth"}') -DPRODUCT_INVENTORY_SERVICE_URL=$(oc get route product-inventory -o jsonpath='{"http://"}{.spec.host}')
+$ mvn clean fabric8:deploy -Popenshift -DSSO_AUTH_SERVER_URL=$(oc get route secure-sso -n rh-sso -o jsonpath='{"https://"}{.spec.host}{"/auth"}') -DPRODUCT_INVENTORY_SERVICE_URL=$(oc get route product-inventory -o jsonpath='{"http://"}{.spec.host}')
 ----
 
 == Interacting with the Application on a Single-node OpenShift Cluster
