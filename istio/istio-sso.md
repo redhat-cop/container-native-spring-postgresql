@@ -9,6 +9,11 @@
 
 ## Known Issues/Findings
 
+* Istio rules do not allow for checking of missing `Authorization` header. This needs to be done elsewhere such as the Spring Controller.
+
+* [Bug: istioctl support for Openshift DeploymentConfig](https://github.com/istio/issues/issues/29)
+  * Need to use Deployment instead (see Kamesh's [example project](https://github.com/kameshsampath/istio-keycloak-demo/blob/98302468c0bb9cf4204b41cf2f04672c561eab05/cars-api/src/istio/cars-api-0.0.1-all.yml)
+
 * [Bug: EndUserAuthenticationSpec not allowing http](https://github.com/istio/istio/issues/2668)
   * Workaround is to use `kubectl` rather than `istioctl` 
 
@@ -21,7 +26,7 @@
 
 * [Bug: Disable Liveness/Readiness Probe on HTTP port 8080 or Spring Boot container will not go live](https://github.com/kameshsampath/istio-keycloak-demo/issues/3)
 
-* Bug?: Updating Auth Policies may be unreliable  requiring restarting destination service pod or even Istio itself
+* Bug?: Updating Auth Policies may be unreliable requiring restarting destination service pod or even Istio itself
 
 * Bug?: Errors coming from Istio/Proxy logs which turn out to be red herrings
   * `ERROR: logging before flag.Parse`
