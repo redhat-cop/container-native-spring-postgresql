@@ -70,3 +70,12 @@ References
 
 * [Guide to using Red Hat JBoss SSO for OpenShift](https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/single/red_hat_jboss_sso_for_openshift/index)
 * [Snowdrop SSO YAML](https://github.com/snowdrop/spring-boot-http-secured-booster/blob/master/service.sso.yaml)
+
+
+Run Local Keycloak Docker Container
+------
+
+If you choose to run SSO/Keycloak locally outside of OpenShift, it is possible. Use version 2.5.1 of Keycloak which aligns with the version of Keycloak which RH SSO is built from:
+
+
+`docker run -e KEYCLOAK_USER=admin -e KEYCLOAK_PASSWORD=admin -p 8081:8080 jboss/keycloak:2.5.1.Final`

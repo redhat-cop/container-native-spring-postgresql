@@ -1,28 +1,24 @@
 apiVersion: config.istio.io/v1alpha2
 kind: EndUserAuthenticationPolicySpec
 metadata: 
-  name: cars-api-auth-policy  
-  namespace: myproject
+  name: product-catalog-auth-policy  
+  namespace: product
 spec: 
   jwts: 
-    - issuer: http://sso-myproject.192.168.64.2.nip.io/auth/realms/istio
-      jwks_uri: http://sso-myproject.192.168.64.2.nip.io/auth/realms/istio/protocol/openid-connect/certs 
+    - issuer: http://sso-sso.192.168.64.2.nip.io/auth/realms/product
+      jwks_uri: http://sso-sso.192.168.64.2.nip.io/auth/realms/product/protocol/openid-connect/certs 
       audiences: 
-      - curl
-      forward_jwt: true
-      #public_key_cache_duration: 0
- # https://github.com/istio/istio/blob/49485f1c0787028e95e6de73cf597c333724b773/pilot/test/mock/config.go#L136
+      - product-client
 --- 
 apiVersion: config.istio.io/v1alpha2
 kind: EndUserAuthenticationPolicySpecBinding
 metadata:
-  name: cars-api-auth-policy-binding
-  namespace: myproject
+  name: product-catalog-auth-policy-binding
+  namespace: product
 spec:                                       
   policies: 
-    - name: cars-api-auth-policy      
-      namespace: myproject
+    - name: product-catalog-auth-policy      
+      namespace: product
   services:                                                                                                                         
-    - name: cars-api
-      namespace: myproject
- # See - https://groups.google.com/forum/#!topic/istio-security/DzLR6Gqqjxk
+    - name: product-catalog
+      namespace: product
