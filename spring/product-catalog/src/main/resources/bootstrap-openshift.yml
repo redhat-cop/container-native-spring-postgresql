@@ -10,8 +10,8 @@ spring.cloud.vault:
         service-account-token-file: /var/run/secrets/kubernetes.io/serviceaccount/token
     config:
         order: -10
-#    generic:
-#      enabled: false
+    generic:
+      enabled: false
 #    postgresql:
 #        enabled: true
 #        role: pg-readwrite
