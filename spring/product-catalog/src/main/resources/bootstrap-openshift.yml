@@ -11,7 +11,7 @@ spring.cloud.vault:
     config:
         order: 10
     generic:
-      enabled: true
+      enabled: false
     postgresql:
         enabled: true
         role: pg-readwrite
