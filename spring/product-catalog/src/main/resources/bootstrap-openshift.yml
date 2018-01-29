@@ -11,10 +11,10 @@ spring.cloud.vault:
     config:
         order: 10
     generic:
-      enabled: false
-    postgresql:
-        enabled: true
-        role: pg-readwrite
-        backend: database
-        username-property: spring.datasource.username
-        password-property: spring.datasource.password
+      enabled: true
+#    postgresql:
+#        enabled: true
+#        role: pg-readwrite
+#        backend: database
+#        username-property: spring.datasource.username
+#        password-property: spring.datasource.password
