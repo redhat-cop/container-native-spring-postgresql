@@ -10,7 +10,7 @@ spring.cloud.vault:
         service-account-token-file: /var/run/secrets/kubernetes.io/serviceaccount/token
     config:
         order: 10
-        lifecycle.enabled: true
+        lifecycle.enabled: false
     generic:
       enabled: false
     postgresql:
