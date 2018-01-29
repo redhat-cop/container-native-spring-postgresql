@@ -9,9 +9,9 @@ spring.cloud.vault:
         role: product-catalog
         service-account-token-file: /var/run/secrets/kubernetes.io/serviceaccount/token
     config:
-        order: 10
-    generic:
-      enabled: true
+        order: -10
+#    generic:
+#      enabled: false
 #    postgresql:
 #        enabled: true
 #        role: pg-readwrite

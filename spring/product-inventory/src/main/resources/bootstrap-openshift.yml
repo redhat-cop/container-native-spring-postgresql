@@ -8,12 +8,12 @@ spring.cloud.vault:
         role: product-inventory
         service-account-token-file: /var/run/secrets/kubernetes.io/serviceaccount/token
     config:
-        order: 10
-    generic:
-      enabled: true
-#    postgresql:
-#        enabled: true
-#        role: pg-readwrite
-#        backend: database
-#        username-property: spring.datasource.username
-#        password-property: spring.datasource.password
+        order: -10
+#    generic:
+#      enabled: false
+##    postgresql:
+##        enabled: true
+##        role: pg-readwrite
+##        backend: database
+##        username-property: spring.datasource.username
+##        password-property: spring.datasource.password
