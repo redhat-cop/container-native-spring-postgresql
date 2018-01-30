@@ -9,8 +9,9 @@ oc project pgo
 
 pod=`oc get pods | grep postgres-ha-[0-9] | awk '{print $1}'`
 
-oc rsh $pod  psql -U postgres -f ./spring/db.sql -d userdb
+oc rsync ./spring/db/ $pod:/tmp --no-perms
 
+oc rsh $pod  psql -U postgres -f /tmp/db.sql -d userdb
 
 ```
 
