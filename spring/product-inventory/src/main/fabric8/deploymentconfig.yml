@@ -69,18 +69,6 @@ spec:
                configMapKeyRef:
                  name: keycloak-properties
                  key: credentails-secret 
-          livenessProbe:
-            httpGet:
-              path: /health
-              port: 8080
-            initialDelaySeconds: 60
-            periodSeconds: 3
-          readinessProbe:
-            httpGet:
-              path: /health
-              port: 8080
-            initialDelaySeconds: 60
-            periodSeconds: 3 
           volumeMounts:
           - name: keystore-volume
             mountPath: /var/run/secrets/java.io/keystores            
