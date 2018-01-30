@@ -1,17 +1,17 @@
 spring.application.name: product-catalog 
-logging.level.org.springframework: debug 
-spring.cloud.vault:
-    host: vault.vault.svc.cluster.local
-    port: 8200
-    scheme: https
-    authentication: KUBERNETES
-    kubernetes:
-        role: product-catalog
-        service-account-token-file: /var/run/secrets/kubernetes.io/serviceaccount/token
-    config:
-        order: -10
-    generic:
-      enabled: false
+#logging.level.org.springframework: debug 
+#spring.cloud.vault:
+#    host: vault.vault.svc.cluster.local
+#    port: 8200
+#    scheme: https
+#    authentication: KUBERNETES
+#    kubernetes:
+#        role: product-catalog
+#        service-account-token-file: /var/run/secrets/kubernetes.io/serviceaccount/token
+#    config:
+#        order: -10
+#    generic:
+#      enabled: false
 #    postgresql:
 #        enabled: true
 #        role: pg-readwrite
