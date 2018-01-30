@@ -1,10 +1,10 @@
 {
-  "realm": "demorealm",
+  "realm": "master",
   "auth-server-url": "${SSO_AUTH_SERVER_URL}",
   "no-check-certificate": true,
   "resource": "inventoryservice",
   "credentials": {
-    "secret": "3b17e47e-9fc5-406b-9cb2-a7a6b8a87c41"
+    "secret": "52dc1cb1-5a27-4fc5-80b3-479b94c79ea5"
   },
   "enable-cors": true,
   "use-resource-role-mappings": true
