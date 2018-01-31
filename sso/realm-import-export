@@ -3,6 +3,7 @@
 
 https://access.redhat.com/documentation/en-us/red_hat_single_sign-on/7.0/html/server_administration_guide/export_import
 
+`oc rsh sso-1-wj5nw bash`
 `bin/standalone.sh -Dkeycloak.migration.action=export -Dkeycloak.migration.provider=singleFile -Dkeycloak.migration.file=/tmp/product-realm-export.json -Dkeycloak.migration.realmName=product`
 
 ```
