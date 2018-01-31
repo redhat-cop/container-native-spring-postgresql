@@ -36,7 +36,36 @@ spec:
         args: ['-c', "csplit -z -f crt- $ca_bundle '/-----BEGIN CERTIFICATE-----/' '{*}' && for file in crt-*; do keytool -import -noprompt -keystore $truststore_jks -file $file -storepass changeit -alias service-$file; done"]
         volumeMounts:
           - name: keystore-volume
-            mountPath: /var/run/secrets/java.io/keystores      
+            mountPath: /var/run/secrets/java.io/keystores   
+
+
+      - args:
+        - -p
+        - "15001"
+        - -u
+        - "1337"
+        image: docker.io/istio/proxy_init:0.4.0
+        imagePullPolicy: IfNotPresent
+        name: istio-init
+        resources: {}
+        securityContext:
+          capabilities:
+            add:
+            - NET_ADMIN
+          privileged: true
+      - args:
+        - -c
+        - sysctl -w kernel.core_pattern=/etc/istio/proxy/core.%e.%p.%t && ulimit -c
+          unlimited
+        command:
+        - /bin/sh
+        image: alpine
+        imagePullPolicy: IfNotPresent
+        name: enable-core-dump
+        resources: {}
+        securityContext:
+          privileged: true
+
       containers:
         - name: product-inventory
           image: "product/product-inventory:latest"
@@ -71,7 +100,73 @@ spec:
                  key: credentails-secret 
           volumeMounts:
           - name: keystore-volume
-            mountPath: /var/run/secrets/java.io/keystores            
+            mountPath: /var/run/secrets/java.io/keystores       
+
+        - args:
+          - proxy
+          - sidecar
+          - -v
+          - "2"
+          - --configPath
+          - /etc/istio/proxy
+          - --binaryPath
+          - /usr/local/bin/envoy
+          - --serviceCluster
+          - cars-api
+          - --drainDuration
+          - 45s
+          - --parentShutdownDuration
+          - 1m0s
+          - --discoveryAddress
+          - istio-pilot.istio-system:15003
+          - --discoveryRefreshDelay
+          - 1s
+          - --zipkinAddress
+          - zipkin.istio-system:9411
+          - --connectTimeout
+          - 10s
+          - --statsdUdpAddress
+          - istio-mixer.istio-system:9125
+          - --proxyAdminPort
+          - "15000"
+          - --controlPlaneAuthPolicy
+          - NONE
+          env:
+          - name: POD_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
+          - name: POD_NAMESPACE
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.namespace
+          - name: INSTANCE_IP
+            valueFrom:
+              fieldRef:
+                fieldPath: status.podIP
+          image: docker.io/istio/proxy_debug:0.4.0
+          imagePullPolicy: IfNotPresent
+          name: istio-proxy
+          resources: {}
+          securityContext:
+            privileged: true
+            readOnlyRootFilesystem: false
+            runAsUser: 1337
+          volumeMounts:
+          - mountPath: /etc/istio/proxy
+            name: istio-envoy
+          - mountPath: /etc/certs/
+            name: istio-certs
+            readOnly: true
+
       volumes:
       - name: keystore-volume
-        emptyDir: {}              
+        emptyDir: {}         
+      - name: istio-envoy
+        emptyDir:
+          medium: Memory
+          sizeLimit: "0"
+      - name: istio-certs
+        secret:
+          optional: true
+          secretName: istio.default         
