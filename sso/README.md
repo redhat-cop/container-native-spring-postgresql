@@ -25,7 +25,7 @@ configure the OAuth server
 ```
 export fqdn=`oc get route | grep secure-sso | awk '{print $2}'`
 export subdomain=${fqdn:`expr index "$fqdn" '.'`}
-export pod=oc get pods | grep -m1 sso | awk '{print $1}'
+export pod=`oc get pods | grep -m1 sso | awk '{print $1}'`
 oc rsync $pod:/var/run/secrets/java.io/keystores/truststore.jks /tmp/
 kcadm.sh config truststore --storepass changeit /tmp/truststore.jks
 kcadm.sh config credentials --server https://$fqdn/auth --realm master --user admin --password 2ukFR5Kh
