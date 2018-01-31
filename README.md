@@ -30,6 +30,9 @@ The application has the following architecture:
 2. You have dynamic volume provisioning available
    * This is available by default with Minishift and `oc cluster up`
 3. You are running the network policy plugin.
+   * To enable the network policy plugin on Minishift use:
+   ```  ./minishift openshift config set --patch='{"networkConfig":{"networkPluginName":"redhat/openshift-ovs-networkpolicy"}} ```
+4. It's possible to use static provisioning provided that you have enough volumes
 
 Here are the steps for the installation:
 
