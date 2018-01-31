@@ -6,10 +6,8 @@ Setup
 
 ```
 $ oc new-project rh-sso
-$ oc create -n openshift -f https://raw.githubusercontent.com/jboss-openshift/application-templates/master/jboss-image-streams.json
 $ oc create -f sso/service.sso.yaml
 $ oc policy add-role-to-user view system:serviceaccount:$(oc project -q):sso-service-account
-
 
 ```
 
