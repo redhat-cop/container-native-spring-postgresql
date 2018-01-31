@@ -36,7 +36,7 @@ In the Valid Redirect URIs dialog, enter the URI for product-frontend applicatio
 
 ```
 
-https://product-frontend-product.LOCAL_OPENSHIFT_HOSTNAME/*
+http://product-frontend-product.LOCAL_OPENSHIFT_HOSTNAME/*
 
 
 ```
