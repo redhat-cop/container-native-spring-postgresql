@@ -5,12 +5,35 @@ Setup
 -----
 
 ```
-$ oc new-project rh-sso
-$ oc create -n openshift -f https://raw.githubusercontent.com/jboss-openshift/application-templates/master/jboss-image-streams.json
-$ oc create -f sso/service.sso.yaml
-$ oc policy add-role-to-user view system:serviceaccount:$(oc project -q):sso-service-account
+oc new-project rh-sso
+oc create -f sso/service.sso.yaml
+oc policy add-role-to-user view system:serviceaccount:$(oc project -q):sso-service-account
 
+```
+# Configuration via CLI
 
+Install the `kcadm.sh` CLI
+```
+curl https://downloads.jboss.org/keycloak/3.4.3.Final/keycloak-3.4.3.Final.tar.gz -O /tmp/keycloak-3.4.3.Final.tar.gz
+tar -zxvf /tmp/keycloak-3.4.3.Final.tar.gz -C /tmp
+export KEYCLOAK_HOME=/tmp/keycloak-3.4.3.Final
+export PATH=$PATH:$KEYCLOAK_HOME/bin
+```
+
+configure the OAuth server
+
+```
+export fqdn=`oc get route | grep secure-sso | awk '{print $2}'`
+export subdomain=${fqdn:`expr index "$fqdn" '.'`}
+export pod=oc get pods | grep -m1 sso | awk '{print $1}'
+oc rsync $pod:/var/run/secrets/java.io/keystores/truststore.jks /tmp/
+kcadm.sh config truststore --storepass changeit /tmp/truststore.jks
+kcadm.sh config credentials --server https://$fqdn/auth --realm master --user admin --password 2ukFR5Kh
+cat ./sso/inventoryservice-client.json | envsubst | kcadm.sh create clients -r master -f -
+kcadm.sh create clients/b5e0526f-25b5-452c-9d66-e56515402e7f/roles -r master -s name=user
+kcadm.sh create users -r master -s username=demouser -s enabled=true
+kcadm.sh set-password -r master --username demouser --password password
+kcadm.sh add-roles --username demouser --rolename user -r master
 ```
 
 Login & configuration
@@ -38,7 +61,7 @@ In the Valid Redirect URIs dialog, enter the URI for product-frontend applicatio
 
 ```
 
-https://product-frontend-product.LOCAL_OPENSHIFT_HOSTNAME/*
+http://product-frontend-product.LOCAL_OPENSHIFT_HOSTNAME/*
 
 
 ```

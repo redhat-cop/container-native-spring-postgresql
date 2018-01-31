@@ -11,13 +11,13 @@ items:
     resources:
       requests:
         storage: 512M
-- apiVersion: v1
-  kind: Secret
-  metadata:
-    name: sso-app-secret
-  data:
-    keystore.jks: "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"
-    jgroups.jceks: zs7OzgAAAAIAAAABAAAAAwAKc2VjcmV0LWtleQAAAVDQhuHmrO0ABXNyADNjb20uc3VuLmNyeXB0by5wcm92aWRlci5TZWFsZWRPYmplY3RGb3JLZXlQcm90ZWN0b3LNV8pZ5zC7UwIAAHhyABlqYXZheC5jcnlwdG8uU2VhbGVkT2JqZWN0PjY9psO3VHACAARbAA1lbmNvZGVkUGFyYW1zdAACW0JbABBlbmNyeXB0ZWRDb250ZW50cQB+AAJMAAlwYXJhbXNBbGd0ABJMamF2YS9sYW5nL1N0cmluZztMAAdzZWFsQWxncQB+AAN4cHVyAAJbQqzzF/gGCFTgAgAAeHAAAAAPMA0ECHcwLGK6EDyLAgEUdXEAfgAFAAAAmCu9wRKf1aYYUOEWe406ncPtIdm3147G7MJyWUu2kJVY15a2QxeZi9w5J3AF6T64CvylUuQjpcC4DWXwVn9BefntkBR8CzTiH7VxEqVOQ/OkFS29Inoq8t7/NBaTgTdmMkb4ETV1gIsy/+W6kk7QTqxItCkdKKGFE90Be/7yL3tG16TCy/ABKl7CO6PHa44CqK2PUE1oaJ+WdAAWUEJFV2l0aE1ENUFuZFRyaXBsZURFU3QAFlBCRVdpdGhNRDVBbmRUcmlwbGVERVMN658veJP01V2j9y8bQCYIzViutw==
+#- apiVersion: v1
+#  kind: Secret
+#  metadata:
+#    name: sso-app-secret
+#  data:
+#    keystore.jks: "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"
+#    jgroups.jceks: zs7OzgAAAAIAAAABAAAAAwAKc2VjcmV0LWtleQAAAVDQhuHmrO0ABXNyADNjb20uc3VuLmNyeXB0by5wcm92aWRlci5TZWFsZWRPYmplY3RGb3JLZXlQcm90ZWN0b3LNV8pZ5zC7UwIAAHhyABlqYXZheC5jcnlwdG8uU2VhbGVkT2JqZWN0PjY9psO3VHACAARbAA1lbmNvZGVkUGFyYW1zdAACW0JbABBlbmNyeXB0ZWRDb250ZW50cQB+AAJMAAlwYXJhbXNBbGd0ABJMamF2YS9sYW5nL1N0cmluZztMAAdzZWFsQWxncQB+AAN4cHVyAAJbQqzzF/gGCFTgAgAAeHAAAAAPMA0ECHcwLGK6EDyLAgEUdXEAfgAFAAAAmCu9wRKf1aYYUOEWe406ncPtIdm3147G7MJyWUu2kJVY15a2QxeZi9w5J3AF6T64CvylUuQjpcC4DWXwVn9BefntkBR8CzTiH7VxEqVOQ/OkFS29Inoq8t7/NBaTgTdmMkb4ETV1gIsy/+W6kk7QTqxItCkdKKGFE90Be/7yL3tG16TCy/ABKl7CO6PHa44CqK2PUE1oaJ+WdAAWUEJFV2l0aE1ENUFuZFRyaXBsZURFU3QAFlBCRVdpdGhNRDVBbmRUcmlwbGVERVMN658veJP01V2j9y8bQCYIzViutw==
 - apiVersion: v1
   kind: Secret
   metadata:
@@ -34,6 +34,8 @@ items:
   kind: Service
   metadata:
     name: secure-sso
+    annotations:
+      service.alpha.openshift.io/serving-cert-secret-name: service-certs
     labels:
       application: sso
       component: server
@@ -82,6 +84,41 @@ items:
       spec:
         serviceAccountName: sso-service-account
         terminationGracePeriodSeconds: 30
+        initContainers:
+        - name: pem-to-keystore
+          image: registry.access.redhat.com/redhat-sso-7/sso71-openshift:1.1-16
+          env:
+          - name: keyfile
+            value: /var/run/secrets/openshift.io/services_serving_certs/tls.key
+          - name: crtfile
+            value: /var/run/secrets/openshift.io/services_serving_certs/tls.crt
+          - name: keystore_pkcs12
+            value: /var/run/secrets/java.io/keystores/keystore.pkcs12
+          - name: keystore_jks
+            value: /var/run/secrets/java.io/keystores/keystore.jks
+          - name: password
+            value: changeit    
+          command: ['/bin/bash']
+          args: ['-c', "openssl pkcs12 -export -inkey $keyfile -in $crtfile -out $keystore_pkcs12 -password pass:$password && keytool -importkeystore -noprompt -srckeystore $keystore_pkcs12 -srcstoretype pkcs12 -destkeystore $keystore_jks -storepass $password -srcstorepass $password"]
+          volumeMounts:
+          - name: keystore-volume
+            mountPath: /var/run/secrets/java.io/keystores
+          - name: service-certs
+            mountPath: /var/run/secrets/openshift.io/services_serving_certs
+        - name: pem-to-truststore
+          image: registry.access.redhat.com/redhat-sso-7/sso71-openshift:1.1-16
+          env:
+            - name: ca_bundle
+              value: /var/run/secrets/kubernetes.io/serviceaccount/service-ca.crt
+            - name: truststore_jks
+              value: /var/run/secrets/java.io/keystores/truststore.jks
+            - name: password
+              value: changeit    
+          command: ['/bin/bash']
+          args: ['-c', "csplit -z -f crt- $ca_bundle '/-----BEGIN CERTIFICATE-----/' '{*}' && for file in crt-*; do keytool -import -noprompt -keystore $truststore_jks -file $file -storepass changeit -alias service-$file; done"]
+          volumeMounts:
+            - name: keystore-volume
+              mountPath: /var/run/secrets/java.io/keystores                     
         containers:
         - name: sso
           image: registry.access.redhat.com/redhat-sso-7/sso71-openshift
@@ -90,17 +127,10 @@ items:
           - name: sso-demo-volume
             mountPath: "/opt/sso-demo"
             readOnly: true
-          - name: eap-keystore-volume
-            mountPath: "/etc/eap-secret-volume"
-            readOnly: true
-          - name: eap-jgroups-keystore-volume
-            mountPath: "/etc/jgroups-encrypt-secret-volume"
-            readOnly: true
-          - name: sso-truststore-volume
-            mountPath: "/etc/sso-secret-volume"
-            readOnly: true
           - name: standalone-xml-history
             mountPath: /opt/eap/standalone/configuration/standalone_xml_history
+          - mountPath: /var/run/secrets/java.io/keystores
+            name: keystore-volume            
           livenessProbe:
             exec:
               command:
@@ -152,20 +182,20 @@ items:
           - name: SSO_IMPORT_FILE
 #            value: "/opt/sso-demo/sso-demo.json"
           - name: HTTPS_KEYSTORE_DIR
-            value: "/etc/eap-secret-volume"
+            value: "/var/run/secrets/java.io/keystores"
           - name: HTTPS_KEYSTORE
             value: "keystore.jks"
           - name: HTTPS_KEYSTORE_TYPE
           - name: HTTPS_NAME
             value: "jboss"
           - name: HTTPS_PASSWORD
-            value: "mykeystorepass"
+            value: "changeit"
           - name: JGROUPS_ENCRYPT_SECRET
             value: "sso-app-secret"
           - name: JGROUPS_ENCRYPT_KEYSTORE_DIR
-            value: "/etc/jgroups-encrypt-secret-volume"
+            value: "/var/run/secrets/java.io/keystores"
           - name: JGROUPS_ENCRYPT_KEYSTORE
-            value: "jgroups.jceks"
+            value: "keystore.jks"
           - name: JGROUPS_ENCRYPT_NAME
           - name: JGROUPS_ENCRYPT_PASSWORD
           - name: JGROUPS_CLUSTER_PASSWORD
@@ -176,9 +206,11 @@ items:
             value: "2ukFR5Kh"
           - name: SSO_REALM
           - name: SSO_TRUSTSTORE
+            value: truststore.jks
           - name: SSO_TRUSTSTORE_DIR
-            value: "/etc/sso-secret-volume"
+            value: "/var/run/secrets/java.io/keystores"
           - name: SSO_TRUSTSTORE_PASSWORD
+            value: changeit
           - name: JGROUPS_PING_PROTOCOL
             value: "openshift.KUBE_PING"
           - name: OPENSHIFT_KUBE_PING_PORT_NAME
@@ -194,17 +226,13 @@ items:
         - name: sso-demo-volume
           secret:
             secretName: sso-demo-secret
-        - name: eap-keystore-volume
+        - name: keystore-volume
+          emptyDir: {}
+        - name: service-certs
           secret:
-            secretName: "sso-app-secret"
-        - name: eap-jgroups-keystore-volume
-          secret:
-            secretName: "sso-app-secret"
-        - name: sso-truststore-volume
-          secret:
-            secretName: "sso-app-secret"
-    triggers:
-    - type: ConfigChange
+            secretName: service-certs             
+          triggers:
+          - type: ConfigChange
 - apiVersion: v1
   kind: Route
   metadata:
@@ -217,7 +245,7 @@ items:
       kind: Service
       name: secure-sso
     tls:
-      termination: passthrough
+      termination: reencrypt
 - apiVersion: v1
   kind: Route
   metadata:

@@ -4,7 +4,7 @@ metadata:
   name: keycloak-properties
 data:
   realm: "master"
-  realm-key: "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApK2tpqCGfHb17H/1vrtnvuRV6+uomZozroMmKybOagBoDa0gfz/vB0yumLu8Ya389SRS/3vUiXt0cRuv6A2XWRhXKahRkQfec3fKQz9zp2k3NjpFbEMiFKI45dxdsijiHW1nLW/4v49Q0ND2edp1nvCn2tA9ETC74zz44cTZ58ca3B1x+4akk9UN5vJG3+xgzg6eipCpHPLvVUu0uptHCs9TzyY3pec3t20w8agQbUt1ZS55rutfQ6rQ3Ni0BFAMNzSghhq074yNBCe1C2LAf6UNJR8VNwL5ZAFvZGzvzYqVc2Xx9WAYLh+WVpemdDUiQKlB4dBtNQDc3exzAoHlMQIDAQAB"
+  realm-key: "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhQ18+uOna9NjI0SEpMw8x9cO2KMMtEe1jBpxSQ7QTLcz14Wos99W8mr/7m/PeCPp5mO9AbyXhsGL7qsglGcSF2k8fV11g8v2WqOyr+tI4zEZOAB28MhWj0yyYoWVRenZ3bo8WUF/dCXNzgvpI+9m8JRpwFLxeW/TVPCGCxiM1QzcnbJHF5r3U5DBJ5N/YcPI/U52i8vZ6mVOKK+3SJLrJtj/Uu577nkP/8ag8DzKULtLYmlDX3Bjrb62ijkXuDMfpgKeLh+T3Sv78euXQ1hhlmhb5szQSqa8vuQYHODTccpDoNF5AfGEdI50IEfWSOseKaaOo36pQNIVW4BHmhDAHwIDAQAB"
   resource: "inventoryservice"
-  auth-server-url: "https://secure-sso-rh-sso.192.168.42.154.nip.io/auth"
-  credentails-secret: "254deb12-6094-4860-ad1f-1b4aa3db62a0"
+  auth-server-url: "https://secure-sso-rh-sso.192.168.42.202.nip.io/auth"
+  credentails-secret: "52dc1cb1-5a27-4fc5-80b3-479b94c79ea5"

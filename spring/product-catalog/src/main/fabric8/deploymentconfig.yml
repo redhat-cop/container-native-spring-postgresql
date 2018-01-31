@@ -37,105 +37,93 @@ spec:
         volumeMounts:
           - name: keystore-volume
             mountPath: /var/run/secrets/java.io/keystores 
-      - name: istio-init
-        args:
-        - -p
-        - "15001"
-        - -u
-        - "1337"
-        image: docker.io/istio/proxy_init:0.4.0
-        imagePullPolicy: IfNotPresent        
-        securityContext:
-          capabilities:
-            add:
-            - NET_ADMIN
-          privileged: true                 
+#      - name: istio-init
+#        args:
+#        - -p
+#        - "15001"
+#        - -u
+#        - "1337"
+#        image: docker.io/istio/proxy_init:0.4.0
+#        imagePullPolicy: IfNotPresent        
+#        securityContext:
+#          capabilities:
+#            add:
+#            - NET_ADMIN
+#          privileged: true                 
       containers:
-      - args:
-        - proxy
-        - sidecar
-        - -v
-        - "2"
-        - --configPath
-        - /etc/istio/proxy
-        - --binaryPath
-        - /usr/local/bin/envoy
-        - --serviceCluster
-        - product-catalog
-        - --drainDuration
-        - 45s
-        - --parentShutdownDuration
-        - 1m0s
-        - --discoveryAddress
-        - istio-pilot.istio-system:15003
-        - --discoveryRefreshDelay
-        - 1s
-        - --zipkinAddress
-        - zipkin.istio-system:9411
-        - --connectTimeout
-        - 10s
-        - --statsdUdpAddress
-        - istio-mixer.istio-system:9125
-        - --proxyAdminPort
-        - "15000"
-        - --controlPlaneAuthPolicy
-        - NONE
-        env:
-        - name: POD_NAME
-          valueFrom:
-            fieldRef:
-              fieldPath: metadata.name
-        - name: POD_NAMESPACE
-          valueFrom:
-            fieldRef:
-              fieldPath: metadata.namespace
-        - name: INSTANCE_IP
-          valueFrom:
-            fieldRef:
-              fieldPath: status.podIP
-        image: docker.io/istio/proxy:0.4.0
-        imagePullPolicy: IfNotPresent
-        name: istio-proxy
-        resources: {}
-        securityContext:
-          privileged: false
-          readOnlyRootFilesystem: true
-          runAsUser: 1337
-        volumeMounts:
-        - mountPath: /etc/istio/proxy
-          name: istio-envoy
-        - mountPath: /etc/certs/
-          name: istio-certs
-          readOnly: true
+#      - args:
+#        - proxy
+#        - sidecar
+#        - -v
+#        - "2"
+#        - --configPath
+#        - /etc/istio/proxy
+#        - --binaryPath
+#        - /usr/local/bin/envoy
+#        - --serviceCluster
+#        - product-catalog
+#        - --drainDuration
+#        - 45s
+#        - --parentShutdownDuration
+#        - 1m0s
+#        - --discoveryAddress
+#        - istio-pilot.istio-system:15003
+#        - --discoveryRefreshDelay
+#        - 1s
+#        - --zipkinAddress
+#        - zipkin.istio-system:9411
+#        - --connectTimeout
+#        - 10s
+#        - --statsdUdpAddress
+#        - istio-mixer.istio-system:9125
+#        - --proxyAdminPort
+#        - "15000"
+#        - --controlPlaneAuthPolicy
+#        - NONE
+#        env:
+#        - name: POD_NAME
+#          valueFrom:
+#            fieldRef:
+#              fieldPath: metadata.name
+#        - name: POD_NAMESPACE
+#          valueFrom:
+#            fieldRef:
+#              fieldPath: metadata.namespace
+#        - name: INSTANCE_IP
+#          valueFrom:
+#            fieldRef:
+#              fieldPath: status.podIP
+#        image: docker.io/istio/proxy:0.4.0
+#        imagePullPolicy: IfNotPresent
+#        name: istio-proxy
+#        resources: {}
+#        securityContext:
+#          privileged: false
+#          readOnlyRootFilesystem: true
+#          runAsUser: 1337
+#        volumeMounts:
+#        - mountPath: /etc/istio/proxy
+#          name: istio-envoy
+#        - mountPath: /etc/certs/
+#          name: istio-certs
+#          readOnly: true
       - name: product-catalog
         image: "product/product-catalog:latest"
         imagePullPolicy: Always
         env:     
         - name: JAVA_OPTIONS
           value: -Dspring.profiles.active=openshift -Djavax.net.ssl.trustStore=/var/run/secrets/java.io/keystores/truststore.jks -Djavax.net.ssl.trustStorePassword=changeit                      
-        livenessProbe:
-          httpGet:
-            path: /health
-            port: 8080
-          initialDelaySeconds: 60
-          periodSeconds: 3
-        readinessProbe:
-          httpGet:
-            path: /health
-            port: 8080
-          initialDelaySeconds: 60
-          periodSeconds: 3 
         volumeMounts:
         - name: keystore-volume
           mountPath: /var/run/secrets/java.io/keystores            
       volumes:
       - name: keystore-volume
         emptyDir: {}         
-      - emptyDir:
-          medium: Memory
-          sizeLimit: "0"
-        name: istio-envoy
-      - name: istio-certs
-        secret:
-          optional: true
-          secretName: istio.default             
+#      - emptyDir:
+#          medium: Memory
+#          sizeLimit: "0"
+#        name: istio-envoy
+#      - name: istio-certs
+#        secret:
+#          optional: true
+#          secretName: istio.default             
