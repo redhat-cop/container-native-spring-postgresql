@@ -14,7 +14,7 @@ oc policy add-role-to-user view system:serviceaccount:$(oc project -q):sso-servi
 
 Install the `kcadm.sh` CLI
 ```
-curl https://downloads.jboss.org/keycloak/3.4.3.Final/keycloak-3.4.3.Final.tar.gz -O /tmp/keycloak-3.4.3.Final.tar.gz
+curl https://downloads.jboss.org/keycloak/3.4.3.Final/keycloak-3.4.3.Final.tar.gz -o /tmp/keycloak-3.4.3.Final.tar.gz
 tar -zxvf /tmp/keycloak-3.4.3.Final.tar.gz -C /tmp
 export KEYCLOAK_HOME=/tmp/keycloak-3.4.3.Final
 export PATH=$PATH:$KEYCLOAK_HOME/bin
