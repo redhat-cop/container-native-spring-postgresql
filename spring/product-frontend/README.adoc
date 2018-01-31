@@ -6,6 +6,8 @@ This application requires the product inventory application to be deployed and r
 
 == Building, Deploying and Running the Application
 
+Update `src/main/resources/static/keycloak.json` with your client secret from SSO.
+
 To deploy your application:
 [source,bash,options="nowrap",subs="attributes+"]
 ----
