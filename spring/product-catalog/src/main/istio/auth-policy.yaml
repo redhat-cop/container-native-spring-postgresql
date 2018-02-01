@@ -5,10 +5,10 @@ metadata:
   namespace: product
 spec: 
   jwts: 
-    - issuer: http://sso-sso.192.168.64.2.nip.io/auth/realms/product
-      jwks_uri: http://sso-sso.192.168.64.2.nip.io/auth/realms/product/protocol/openid-connect/certs 
+    - issuer: http://secure-sso-rh-sso.microservice.red/auth/realms/master
+      jwks_uri: http://secure-sso-rh-sso.microservice.red/auth/realms/master/protocol/openid-connect/certs 
       audiences: 
-      - product-client
+      - inventoryservice
 --- 
 apiVersion: config.istio.io/v1alpha2
 kind: EndUserAuthenticationPolicySpecBinding
