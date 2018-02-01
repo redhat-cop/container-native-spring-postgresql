@@ -42,10 +42,10 @@ Here are the steps for the installation:
 3. [Deploy Hashicorp Vault](./vault/deploy-vault.md)
 4. [Configure Vault to use Kubernetes backend authentication](./vault/vault-kube-backend.md)
 5. [Configure Vault to manage the postgresql DB](./vault/vault-postgres.md)
-6. Configure application to use Vault to retrieve the postgresql account
+6. [Configure application to use Vault to retrieve the postgresql account](./spring/accessing_pg.md)
 7. [RH SSO installation](./sso/README.md)
 8. [Istio core installation](./istio/README.md)
-9. Configure app to use Istio
+9. [Configure app to use Istio](./spring/adding_istio_sidecar.md)
 10. [Configure Istio to do Mutual TLS authentication](./istio/enabling-tls.md)
 11. Configure istio to do OAuth Authentication via RH SSO
 12. [Istio Add-ons installation (prometheus, Jaeger)](./istio/addons.md)
