@@ -112,7 +112,7 @@ spec:
           - --binaryPath
           - /usr/local/bin/envoy
           - --serviceCluster
-          - cars-api
+          - product-inventory
           - --drainDuration
           - 45s
           - --parentShutdownDuration
