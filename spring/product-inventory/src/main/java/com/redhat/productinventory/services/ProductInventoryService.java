@@ -3,6 +3,7 @@ package com.redhat.productinventory.services;
 import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,7 @@ public class ProductInventoryService implements ProductInventory {
 	public List<InventoryDTO> showInventoryList(String token) throws JsonProcessingException, IOException {
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Authorization", token);
-		headers.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
+		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 		HttpEntity<?> requestheaders = new HttpEntity<>(headers);
 		List<Inventory> invList = inventoryRepository.findAll();
 		List<InventoryDTO> inventory = new ArrayList<>();
@@ -48,10 +49,15 @@ public class ProductInventoryService implements ProductInventory {
 			invDTO.setInvId(inv.getInvId());
 			invDTO.setItemId(inv.getItemId());
 			invDTO.setQty(inv.getQty());
-			ResponseEntity<String> response = restTemplate.exchange(getURI() + "/" + inv.getItemId(), HttpMethod.GET, requestheaders, String.class);
-			JsonNode rootNode = new ObjectMapper().readTree(response.getBody());
-			invDTO.setName(rootNode.get("name").textValue());
-			inventory.add(invDTO);
+			try {
+				ResponseEntity<String> response = restTemplate.exchange(getURI() + "/" + inv.getItemId(), HttpMethod.GET, requestheaders, String.class);
+				JsonNode rootNode = new ObjectMapper().readTree(response.getBody());
+				invDTO.setName(rootNode.get("name").textValue());
+				inventory.add(invDTO);
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+			}
 		}
 		return inventory;
 	}
