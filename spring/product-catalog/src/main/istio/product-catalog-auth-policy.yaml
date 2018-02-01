@@ -5,11 +5,13 @@ metadata:
   namespace: product
 spec: 
   jwts: 
-    - issuer: http://secure-sso-rh-sso.microservice.red/auth/realms/master
-      jwks_uri: http://secure-sso-rh-sso.microservice.red/auth/realms/master/protocol/openid-connect/certs 
+    - issuer: https://secure-sso-rh-sso.microservice.red/auth/realms/master
+      jwks_uri: https://secure-sso-rh-sso.microservice.red/auth/realms/master/protocol/openid-connect/certs 
       audiences: 
-      - inventoryservice
+      - curl
       forward_jwt: true
+      #public_key_cache_duration: 0
+ # https://github.com/istio/istio/blob/49485f1c0787028e95e6de73cf597c333724b773/pilot/test/mock/config.go#L136
 --- 
 apiVersion: config.istio.io/v1alpha2
 kind: EndUserAuthenticationPolicySpecBinding
@@ -23,3 +25,4 @@ spec:
   services:                                                                                                                         
     - name: product-catalog
       namespace: product
+ # See - https://groups.google.com/forum/#!topic/istio-security/DzLR6Gqqjxk
