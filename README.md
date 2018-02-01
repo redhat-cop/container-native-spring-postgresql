@@ -38,16 +38,57 @@ Here are the steps for the installation:
 
 
 1. [Deploy the Crunchy Postgres operator](./crunchy/deploy-cruncy.md)
+
+![step1](./media/step1.png)
+
 2. [Deploy Postgres in HA](./crunchy/deploy-HA-db.md)
+
+![step2](./media/step2.png)
+
 3. [Deploy Hashicorp Vault](./vault/deploy-vault.md)
+
+![step3](./media/step3.png)
+
 4. [Configure Vault to use Kubernetes backend authentication](./vault/vault-kube-backend.md)
+
+![step4](./media/step4.png)
+
 5. [Configure Vault to manage the postgresql DB](./vault/vault-postgres.md)
+
+![step5](./media/step5.png)
+
 6. [Configure application to use Vault to retrieve the postgresql account](./spring/accessing_pg.md)
+
+![step6](./media/step6.png)
+
 7. [RH SSO installation](./sso/README.md)
+
+![step7](./media/step7.png)
+
 8. [Istio core installation](./istio/README.md)
+
+![step8](./media/step8.png)
+
 9. [Configure app to use Istio](./spring/adding_istio_sidecar.md)
+
+![step9](./media/step9.png)
+
 10. [Configure Istio to do Mutual TLS authentication](./istio/enabling-tls.md)
+
+![step10](./media/step10.png)
+
 11. Configure istio to do OAuth Authentication via RH SSO
+
+![step11](./media/step11.png)
+
 12. [Istio Add-ons installation (prometheus, Jaeger)](./istio/addons.md)
+
+![step12](./media/step12.png)
+
 13. Configure microsegmentation
+
+![step13](./media/step13.png)
+
 14. [Build and deploy the application](./spring/README.md)
+
+![step14](./media/step14.png)
