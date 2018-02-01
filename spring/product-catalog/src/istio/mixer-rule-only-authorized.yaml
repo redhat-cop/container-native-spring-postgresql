@@ -1,0 +1,28 @@
+---
+apiVersion: "config.istio.io/v1alpha2"
+kind: denier
+metadata:
+  name: carsapi-handler
+  namespace: product
+spec:
+  status:
+    code: 16
+    message: You are not authorized to access the service
+---
+apiVersion: "config.istio.io/v1alpha2"
+kind: checknothing
+metadata:
+  name: carsapi-denyrequest
+  namespace: product
+spec:
+---
+apiVersion: "config.istio.io/v1alpha2"
+kind: rule
+metadata:
+  name: carspi-deny
+  namespace: product
+spec:
+  match: destination.labels["app"] == "product-catalog" && destination.namespace == "product" && request.path == "/" && (request.headers["authorization"]|"unauthorized") == "unauthorized"
+  actions:
+  - handler: carsapi-handler.denier.myproject
+    instances: [carsapi-denyrequest.checknothing.myproject]

@@ -1,0 +1,25 @@
+--- 
+apiVersion: config.istio.io/v1alpha2
+kind: EndUserAuthenticationPolicySpec
+metadata: 
+  name: product-catalog-auth-policy
+  namespace: product
+spec: 
+  jwts: 
+    - issuer: http://keycloak.product:8080/auth/realms/istio
+      jwks_uri: http://keycloak.product:8080/auth/realms/istio/protocol/openid-connect/certs
+      audiences: 
+      - cars-web     
+--- 
+apiVersion: config.istio.io/v1alpha2
+kind: EndUserAuthenticationPolicySpecBinding
+metadata:
+  name: product-catalog-auth-policy-binding
+  namespace: product
+spec:
+  policies:
+    - name: product-catalog-auth-policy
+      namespace: product
+  services:
+    - name: product-catalog
+      namespace: product
