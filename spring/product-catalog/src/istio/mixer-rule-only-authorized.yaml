@@ -22,7 +22,8 @@ metadata:
   name: carspi-deny
   namespace: product
 spec:
-  match: destination.labels["app"] == "product-catalog" && destination.namespace == "product" && request.path == "/" && (request.headers["authorization"]|"unauthorized") == "unauthorized"
+#  match: destination.labels["app"] == "product-catalog" && destination.namespace == "product" && request.path == "/" && (request.headers["authorization"]|"unauthorized") == "unauthorized"
+  match: destination.labels["app"] == "product-catalog" && destination.namespace == "product" && request.headers["authorization"] == "unauthorized"
   actions:
   - handler: carsapi-handler.denier.myproject
     instances: [carsapi-denyrequest.checknothing.myproject]
