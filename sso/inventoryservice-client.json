@@ -5,7 +5,7 @@
     "enabled": true,
     "clientAuthenticatorType": "client-secret",
     "redirectUris": [
-        "https://product-frontend-product.${fqdn}"
+        "https://product-frontend-product.${subdomain}"
     ],
     "webOrigins": [
         "*"

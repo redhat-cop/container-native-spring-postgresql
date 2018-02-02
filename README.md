@@ -92,3 +92,18 @@ Here are the steps for the installation:
 14. [Build and deploy the application](./spring/README.md)
 
 ![step14](./media/step14.png)
+
+
+# POC Outcome (as of 2/1/2018)
+
+| technology | production ready | comments |
+|:-:|:-:|:-:|
+| HA database running in openshift | yes | - HA templates to be developed with the customer - day 2 operations still not container native |
+| postgres operator | no | main reason: lack of integration with enterprise security, it's in the roadmap to solve this |
+| Vault | yes | |
+| RH SSO | yes | CLI automation can be probably improved |
+| istio | no | privileged scc permission needs to be given to all pods running in the mesh |
+| Application managed OAuth | yes | | 
+| Istio managed OAuth | no | seems a very frail configuration at this point, future versions of istio may solve this issue |
+| Istio managed mTLS | yes | |
+| microsegmentation | N/A | not completed at this point |

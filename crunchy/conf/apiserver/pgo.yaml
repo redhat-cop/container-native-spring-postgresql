@@ -11,7 +11,7 @@ Cluster:
   PasswordAgeDays:  60
   PasswordLength:  8
   Strategy:  1
-  Replicas:  3
+  Replicas:  1
 PrimaryStorage:
   AccessMode:  ReadWriteMany
   Size:  200M
