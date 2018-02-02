@@ -45,3 +45,14 @@ export PGO_CA_CERT=/tmp/ca.crt
 export PGO_CLIENT_CERT=/tmp/server.crt
 export PGO_CLIENT_KEY=/tmp/server.key
 ```
+
+# testing
+
+```
+pgo version
+```
+should return something like:
+```
+pgo client version 2.4
+apiserver version 2.4
+```
