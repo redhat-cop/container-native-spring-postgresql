@@ -77,7 +77,7 @@ Here are the steps for the installation:
 
 ![step10](./media/step10.png)
 
-11. Configure istio to do OAuth Authentication via RH SSO
+11. [Configure istio to do OAuth Authentication via RH SSO](./istio/istio-sso.md))
 
 ![step11](./media/step11.png)
 
