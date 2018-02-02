@@ -98,12 +98,13 @@ Here are the steps for the installation:
 
 | technology | production ready | comments |
 |:-:|:-:|:-:|
+| RHOAR | yes | the maven plugin may not be fitting for all use cases |
 | HA database running in openshift | yes | - HA templates to be developed with the customer - day 2 operations still not container native |
 | postgres operator | no | main reason: lack of integration with enterprise security, it's in the roadmap to solve this |
 | Vault | yes | |
-| RH SSO | yes | CLI automation can be probably improved |
+| RH SSO | yes |  |
 | istio | no | privileged scc permission needs to be given to all pods running in the mesh |
 | Application managed OAuth | yes | | 
-| Istio managed OAuth | no | seems a very frail configuration at this point, future versions of istio may solve this issue |
-| Istio managed mTLS | yes | |
+| Istio managed OAuth | no | seems a very frail configuration at this point, future versions of Istio may solve this issue |
+| Istio managed mTLS | yes | more testing required |
 | microsegmentation | N/A | not completed at this point |
