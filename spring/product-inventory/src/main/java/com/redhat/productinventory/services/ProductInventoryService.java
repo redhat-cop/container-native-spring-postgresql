@@ -14,6 +14,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -41,7 +42,7 @@ public class ProductInventoryService implements ProductInventory {
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Authorization", token);
 		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-		HttpEntity<?> requestheaders = new HttpEntity<>(headers);
+		HttpEntity<String> requestheaders = new HttpEntity<>(headers);
 		List<Inventory> invList = inventoryRepository.findAll();
 		List<InventoryDTO> inventory = new ArrayList<>();
 		for(Inventory inv : invList) {
@@ -55,7 +56,7 @@ public class ProductInventoryService implements ProductInventory {
 				invDTO.setName(rootNode.get("name").textValue());
 				inventory.add(invDTO);
 			}
-			catch(Exception e) {
+			catch(RestClientException e) {
 				e.printStackTrace();
 			}
 		}
