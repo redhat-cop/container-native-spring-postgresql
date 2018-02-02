@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.redhat.productcatalog.entities.Product;
 import com.redhat.productcatalog.services.ProductCatalogService;
+import java.util.Enumeration;
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping(value = "/product")
@@ -36,15 +38,27 @@ public class ProductCatalogController {
 	}
 
 	@GetMapping(value="/{itemId}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public Product getProduct(@PathVariable("itemId") long itemId
+	public Product getProduct(@PathVariable("itemId") long itemId, HttpServletRequest request
 	// TODO: This header is seemingly not being forwarded from Istio as specified in product-catalog-auth-policy (forward_jwt: true)
 	//       If the header is not being forwarded, it will result in a HTTP 400 error.
 	//       Commenting this out to prevent error until resolution is found (bug in Istio?)
 	//       This token is not needed at this point unless there will be another service call a token will be needed.
 	//, @RequestHeader("Authorization") String token
 	) {
+		
+		Enumeration<String> headerNames = request.getHeaderNames();
+
+		while (headerNames.hasMoreElements()) {
+			String headerName = headerNames.nextElement();
+			System.out.print("Header Name: " + headerName);
+			String headerValue = request.getHeader(headerName);
+			System.out.print("  Header Value: " + headerValue);
+			System.out.println("\n");
+		}
+
 		return productService.getProduct(itemId);
 	}
+
 	
 	@PutMapping(value="/{itemId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
