@@ -41,13 +41,14 @@ public class ProductCatalogController {
 	public Product getProduct(@PathVariable("itemId") long itemId, HttpServletRequest request
 	// TODO: This header is seemingly not being forwarded from Istio as specified in product-catalog-auth-policy (forward_jwt: true)
 	//       If the header is not being forwarded, it will result in a HTTP 400 error.
-	//       Commenting this out to prevent error until resolution is found (bug in Istio?)
+	//       Commenting this out to prevent error until resolution is found (https://github.com/istio/proxy/issues/986)
 	//       This token is not needed at this point unless there will be another service call a token will be needed.
 	//, @RequestHeader("Authorization") String token
 	) {
 		
 		Enumeration<String> headerNames = request.getHeaderNames();
 
+		// Print out headers for debug (see comments above)
 		while (headerNames.hasMoreElements()) {
 			String headerName = headerNames.nextElement();
 			System.out.print("Header Name: " + headerName);

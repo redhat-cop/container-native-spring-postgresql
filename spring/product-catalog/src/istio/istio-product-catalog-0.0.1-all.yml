@@ -1,3 +1,4 @@
+apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   annotations:
@@ -115,7 +116,8 @@ spec:
           name: istio-certs
           readOnly: true
       initContainers:
-      - args: ['-c', "csplit -z -f crt- $ca_bundle '/-----BEGIN CERTIFICATE-----/' '{*}' && for file in crt-*; do keytool -import -noprompt -keystore $truststore_jks -file $file -storepass changeit -alias service-$file; done"]
+      - args: ['-c', "csplit -z -f crt- $ca_bundle '/-----BEGIN CERTIFICATE-----/' '{*}' && for file in crt-*; do keytool -import -noprompt -keystore $truststore_jks -file $file -storepass changeit -ali
+as service-$file; done"]
         name: pem-to-truststore
         image: registry.access.redhat.com/redhat-sso-7/sso71-openshift:1.1-16
         env:
@@ -205,4 +207,3 @@ spec:
   to:
     kind: Service
     name: product-catalog
----
