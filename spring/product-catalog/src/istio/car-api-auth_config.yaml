@@ -6,11 +6,11 @@ metadata:
   namespace: product
 spec: 
   jwts: 
-    - issuer: http://sso.rh-sso:8080/auth/realms/master
-      jwks_uri: http://sso.rh-sso:8080/auth/realms/master/protocol/openid-connect/certs
+    - issuer: https://secure-sso-rh-sso.microservice.red/auth/realms/master
+      jwks_uri: https://secure-sso.rh-sso:8443/auth/realms/master/protocol/openid-connect/certs
       audiences: 
       - inventoryservice
-#      forward_jwt: true     
+      forward_jwt: true     
 --- 
 apiVersion: config.istio.io/v1alpha2
 kind: EndUserAuthenticationPolicySpecBinding
