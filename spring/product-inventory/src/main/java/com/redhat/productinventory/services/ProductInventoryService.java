@@ -50,15 +50,10 @@ public class ProductInventoryService implements ProductInventory {
 			invDTO.setInvId(inv.getInvId());
 			invDTO.setItemId(inv.getItemId());
 			invDTO.setQty(inv.getQty());
-			try {
-				ResponseEntity<String> response = restTemplate.exchange(getURI() + "/" + inv.getItemId(), HttpMethod.GET, requestheaders, String.class);
-				JsonNode rootNode = new ObjectMapper().readTree(response.getBody());
-				invDTO.setName(rootNode.get("name").textValue());
-				inventory.add(invDTO);
-			}
-			catch(RestClientException e) {
-				e.printStackTrace();
-			}
+			ResponseEntity<String> response = restTemplate.exchange(getURI() + "/" + inv.getItemId(), HttpMethod.GET, requestheaders, String.class);
+			JsonNode rootNode = new ObjectMapper().readTree(response.getBody());
+			invDTO.setName(rootNode.get("name").textValue());
+			inventory.add(invDTO);
 		}
 		return inventory;
 	}

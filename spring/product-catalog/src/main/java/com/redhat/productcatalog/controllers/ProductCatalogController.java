@@ -36,7 +36,13 @@ public class ProductCatalogController {
 	}
 
 	@GetMapping(value="/{itemId}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public Product getProduct(@PathVariable("itemId") long itemId, @RequestHeader("Authorization") String token) {
+	public Product getProduct(@PathVariable("itemId") long itemId
+	// TODO: This header is seemingly not being forwarded from Istio as specified in product-catalog-auth-policy (forward_jwt: true)
+	//       If the header is not being forwarded, it will result in a HTTP 400 error.
+	//       Commenting this out to prevent error until resolution is found (bug in Istio?)
+	//       This token is not needed at this point unless there will be another service call a token will be needed.
+	//, @RequestHeader("Authorization") String token
+	) {
 		return productService.getProduct(itemId);
 	}
 	
