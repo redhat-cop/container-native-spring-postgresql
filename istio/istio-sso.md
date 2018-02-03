@@ -1,13 +1,16 @@
-# Istio/SSO Work-in-progress
+# Istio/SSO Integration Notes
 
 ## Current Status
 
-* Sample Spring Boot application runs with an Istio Proxy sidecar
+* Product Catalog Spring Boot application runs with an Istio Proxy sidecar
 * Authorization policy in place to intercept HTTP calls for application which will:
   * Validate JWT token
   * Make backend call to SSO/Keycloak to valide JWT signature based on public key (which may be cached)
 
 ## Known Issues/Findings
+
+* [Bug: forward_jwt doesn't seem to forward Authorization header](https://github.com/istio/proxy/issues/986)
+  * Awaiting implementation even though documented
 
 * Istio rules do not allow for checking of missing `Authorization` header. This needs to be done elsewhere such as the Spring Controller.
 
@@ -33,28 +36,71 @@
   * `[libprotobuf ERROR external/mixerclient_git/src/quota_cache.cc:119] Quota response did not have quota for: RequestCount`
 
 
-  # Notes (In progress)
+  # Implementation/Testing
+
+1) Undeploy existing Product Catalog DC/Route/Service
+
+Will use separate deployment to show Istio/SSO integration for Product Catalog as they have not yet been merged into one. This is a TODO item I didn't have time for.
 
 ```
-# Needs to be kubectl rather than istioctl because of https://github.com/istio/istio/issues/2668
-
-kubectl create -f src/istio/auth-policy.yaml -n myproject
-
-* istioctl is in the bin directory of the Istio 0.4.0 distribution
-
-istioctl create -f src/istio/denier-auth-policy.yaml
-
-# Client ID curl is simply a public client used to obtain a token. This article is helpful: http://blog.keycloak.org/2015/10/getting-started-with-keycloak-securing.html
-
-curl -d "grant_type=password&client_id=curl&username=demo&password=demo" -X POST http://sso-myproject.192.168.64.2.nip.io/auth/realms/eric/protocol/openid-connect/token
-
-# Test the endpoint to make sure no error (HTTP code 403) is returned
-
-curl -vvv -H "Authorization: Bearer $token http://cars-api-myproject.192.168.64.2.nip.io/cars/list
-
-# TODO: This is not captured by handler and denied as you would expect
-# https://groups.google.com/d/msg/istio-security/DzLR6Gqqjxk/rybn4FH5AAAJ
-
-curl -vvv http://cars-api-myproject.192.168.64.2.nip.io/cars/list
+oc delete -f spring/product-catalog/src/main/fabric8/route.yaml
+oc delete -f spring/product-catalog/src/main/fabric8/service.yaml
+oc delete -f spring/product-catalog/src/main/fabric8/deploymentconfig.yaml
 ```
 
+2) Delete any remaining Product Catalog Deployment/Pods
+
+The alternate deployment will reuse Product Catalog image from previous Fabric8 build.
+
+3) Deploy Istio/SSO Integration
+
+Requires using `istioctl` which is part of the Istio download package.
+
+```
+oc apply -f spring/product-catalog/src/istio/product-catalog-auth_config.yaml
+istioctl create -f spring/product-catalog/src/istio/mixer-rule-only-authorized.yaml
+```
+
+4) Run alternate Product Catalog Deployment
+
+Deployment, Service, Route will be created.
+
+```
+oc apply -f spring/product-catalog/src/istio/istio-product-catalog-0.0.1-all.yml
+```
+
+5) Go to Frontend application and test Invoke functionality to make sure it still works.
+
+Make sure you log out and back in of SSO to have a fresh session (not expired JWT)
+
+If there is error coming from invoke, then these instructions have failed and more investigation will be required. Check the logs for Product Inventory for errors including a 403 error code.
+
+6) Proceed to validating token validation is working
+
+a) `oc rsh product-inventory-XXX bash` to log into Product Inventory container, where we will perform the `curl` command internal to OpenShift.
+
+b) Copy `curl` command from the web browser from the Frontend application
+
+c) Paste into text editor to make some tweaks
+
+d) Change URL to be `http://product-catalog.product.svc/product`
+
+e) Remove `| jq`
+
+f) Add `-vvv` switch to curl command for verbose output
+
+g) Run the new  `curl` command inside of the `product-inventory` container. You should see results coming back from the Product Catalog Service.
+
+h) Go back to text editor. Change the JWT in the curl command by replacing the first character with something else.
+
+i) Run the curl command again inside of the product-inventory container. You should be an invalid header error. This is coming from Istio and proves the JWT is being validated.
+
+Extra Credit:
+
+j) Try a JWT you know to be expired. You should get a response from Istio saying it's expired.
+
+k) Replace the signature of your JWT with a signature from a token which is generated from another realm or system. You will get an invalide signature error. This comes from Istio contacting SSO for the public key, and then it will validate the signature is valid for that JWT. This happens for all tokens that pass the initial validation as the signature validation is the last step.
+
+### Helpful Hints
+
+* Use jwt.io to view the contents of your JWT token.
