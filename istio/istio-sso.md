@@ -83,7 +83,7 @@ b) Copy `curl` command from the web browser from the Frontend application
 
 c) Paste into text editor to make some tweaks
 
-d) Change URL to be `http://product-catalog.product.svc/product`
+d) Change URL to be `http://product-catalog.product.svc:8080/product`
 
 e) Remove `| jq`
 
