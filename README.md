@@ -36,6 +36,9 @@ The application has the following architecture:
 
 Here are the steps for the installation:
 
+| Step | Architcture
+|:-:|:-:|
+| 1. [Deploy the Crunchy Postgres operator](./crunchy/deploy-cruncy.md) | ![step1](./media/step1.png) |
 
 1. [Deploy the Crunchy Postgres operator](./crunchy/deploy-cruncy.md)
 
@@ -77,7 +80,7 @@ Here are the steps for the installation:
 
 ![step10](./media/step10.png)
 
-11. [Configure istio to do OAuth Authentication via RH SSO](./istio/istio-sso.md))
+11. [Configure istio to do OAuth Authentication via RH SSO](./istio/enabling-sso.md)
 
 ![step11](./media/step11.png)
 

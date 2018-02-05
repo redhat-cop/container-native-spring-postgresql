@@ -1,26 +1,37 @@
---- 
-apiVersion: config.istio.io/v1alpha2
-kind: EndUserAuthenticationPolicySpec
-metadata: 
-  name: product-catalog-auth-policy
-  namespace: product
-spec: 
-  jwts: 
-    - issuer: https://secure-sso-rh-sso.microservice.red/auth/realms/master
-      jwks_uri: https://secure-sso.rh-sso:8443/auth/realms/master/protocol/openid-connect/certs
-      audiences: 
-      - inventoryservice
-      forward_jwt: true     
---- 
-apiVersion: config.istio.io/v1alpha2
-kind: EndUserAuthenticationPolicySpecBinding
+apiVersion: v1
+kind: Template
 metadata:
-  name: product-catalog-auth-policy-binding
-  namespace: product
-spec:
-  policies:
-    - name: product-catalog-auth-policy
-      namespace: product
-  services:
-    - name: product-catalog
-      namespace: product
+  name: product-istio-oauth-policy
+objects:
+- apiVersion: config.istio.io/v1alpha2
+  kind: EndUserAuthenticationPolicySpec
+  metadata: 
+    name: product-catalog-auth-policy
+    namespace: product
+  spec: 
+    jwts: 
+      - issuer: https://${RH_SSO_ROUTE}/auth/realms/master
+        jwks_uri: https://${RH_SSO_SVC}:8443/auth/realms/master/protocol/openid-connect/certs
+        audiences: 
+        - inventoryservice
+        forward_jwt: true     
+- apiVersion: config.istio.io/v1alpha2
+  kind: EndUserAuthenticationPolicySpecBinding
+  metadata:
+    name: product-catalog-auth-policy-binding
+    namespace: product
+  spec:
+    policies:
+      - name: product-catalog-auth-policy
+        namespace: product
+    services:
+      - name: product-catalog
+        namespace: product
+parameters:
+- description: rh-sso route url
+  required: true
+  name: RH_SSO_ROUTE
+- description: rh-sso service url
+  required: true
+  value: secure-sso.rh-sso.svc
+  name: RH_SSO_SVC 
