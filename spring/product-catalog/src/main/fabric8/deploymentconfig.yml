@@ -37,8 +37,6 @@ spec:
         volumeMounts:
           - name: keystore-volume
             mountPath: /var/run/secrets/java.io/keystores 
-
-
       - args:
         - -p
         - "15001"
@@ -53,19 +51,6 @@ spec:
             add:
             - NET_ADMIN
           privileged: true
-      - args:
-        - -c
-        - sysctl -w kernel.core_pattern=/etc/istio/proxy/core.%e.%p.%t && ulimit -c
-          unlimited
-        command:
-        - /bin/sh
-        image: alpine
-        imagePullPolicy: IfNotPresent
-        name: enable-core-dump
-        resources: {}
-        securityContext:
-          privileged: true
-
       containers:
       - name: product-catalog
         image: "product/product-catalog:latest"
@@ -119,7 +104,7 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: status.podIP
-        image: docker.io/istio/proxy_debug:0.4.0
+        image: docker.io/istio/proxy:0.4.0
         imagePullPolicy: IfNotPresent
         name: istio-proxy
         resources: {}

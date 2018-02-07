@@ -1,6 +1,6 @@
 spring.application.name: product-catalog 
 spring.cloud.vault:
-    host: vault.vault.svc.cluster.local
+    host: vault.vault.svc
     port: 8200
     scheme: https
     authentication: KUBERNETES

@@ -33,7 +33,6 @@ vault write -tls-skip-verify auth/kubernetes/role/product-inventory bound_servic
 ```
 secret=`oc describe sa default | grep 'Tokens:' | awk '{print $2}'`
 token=`oc describe secret $secret | grep 'token:' | awk '{print $2}'`
-vault write -tls-skip-verify auth/kubernetes/login role=product-catalog jwt=$token
 VAULT_TOKEN=`vault write -tls-skip-verify auth/kubernetes/login role=product-catalog jwt=$token | grep -w token | awk 'NR==1{print $2}'`
 vault read -tls-skip-verify database/creds/pg-readwrite
 ```

@@ -5,7 +5,7 @@ Here are the steps for the installation:
 ## Build and deploy the product catalog
 
 ```
-oc project product
+oc new-project product
 oc adm policy add-scc-to-user privileged -z default
 oc new-build registry.access.redhat.com/redhat-openjdk-18/openjdk18-openshift --binary=true --name product-catalog
 oc start-build product-catalog -F --from-dir=./spring/product-catalog
@@ -33,7 +33,8 @@ See also here for more information [Build and deploy the product-inventory appli
 ## Build and deploy the front-end
 
 ```
-mvn -f ./spring/product-frontend clean fabric8:deploy -Popenshift -DSSO_AUTH_SERVER_URL=$(oc get route secure-sso -n rh-sso -o jsonpath='{"https://"}{.spec.host}{"/auth"}') -DPRODUCT_INVENTORY_SERVICE_URL=$(oc get route product-inventory -o jsonpath='{"http://"}{.spec.host}')
+secret=`kcadm.sh get --trustpass=changeit clients/b5e0526f-25b5-452c-9d66-e56515402e7f/client-secret --fields 'value' --format csv --noquotes`
+mvn -f ./spring/product-frontend clean fabric8:deploy -Popenshift -DSSO_AUTH_SERVER_URL=$(oc get route secure-sso -n rh-sso -o jsonpath='{"https://"}{.spec.host}{"/auth"}') -DPRODUCT_INVENTORY_SERVICE_URL=$(oc get route product-inventory -o jsonpath='{"http://"}{.spec.host}') DSSO_CLIENT_SECRET=$secret
 ```
 
 See also here for more details: [Build and deploy the product-frontend application](./product-frontend/README.adoc)
