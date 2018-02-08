@@ -8,3 +8,5 @@ spec:
   to:
     kind: Service
     name: product-inventory
+  tls:
+    termination: edge    

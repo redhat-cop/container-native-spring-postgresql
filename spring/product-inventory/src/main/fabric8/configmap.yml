@@ -1,10 +1,25 @@
-kind: ConfigMap
 apiVersion: v1
+kind: Template
 metadata:
-  name: keycloak-properties
-data:
-  realm: "master"
-  realm-key: "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhQ18+uOna9NjI0SEpMw8x9cO2KMMtEe1jBpxSQ7QTLcz14Wos99W8mr/7m/PeCPp5mO9AbyXhsGL7qsglGcSF2k8fV11g8v2WqOyr+tI4zEZOAB28MhWj0yyYoWVRenZ3bo8WUF/dCXNzgvpI+9m8JRpwFLxeW/TVPCGCxiM1QzcnbJHF5r3U5DBJ5N/YcPI/U52i8vZ6mVOKK+3SJLrJtj/Uu577nkP/8ag8DzKULtLYmlDX3Bjrb62ijkXuDMfpgKeLh+T3Sv78euXQ1hhlmhb5szQSqa8vuQYHODTccpDoNF5AfGEdI50IEfWSOseKaaOo36pQNIVW4BHmhDAHwIDAQAB"
-  resource: "inventoryservice"
-  auth-server-url: "https://secure-sso-rh-sso.192.168.42.202.nip.io/auth"
-  credentails-secret: "52dc1cb1-5a27-4fc5-80b3-479b94c79ea5"
+  name: inventory-sso-config
+objects:
+- kind: ConfigMap
+  apiVersion: v1
+  metadata:
+    name: keycloak-properties
+  data:
+    realm: "master"
+    realm-key: ${RH_SSO_REALM_KEY}
+    resource: "inventoryservice"
+    auth-server-url: https://${RH_SSO_URL}/auth
+    credentails-secret: ${RH_SSO_CREDENTIAL_SECRET}
+parameters:
+- description: rh-ss realm key
+  required: true
+  name: RH_SSO_REALM_KEY
+- description: rh-sso service url
+  required: true
+  name: RH_SSO_URL     
+- description: rh-sso credential secret
+  required: true
+  name: RH_SSO_CREDENTIAL_SECRET 
