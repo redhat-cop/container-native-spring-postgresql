@@ -33,7 +33,7 @@ cat ./sso/inventoryservice-client.json | envsubst | kcadm.sh create clients --tr
 kcadm.sh create --trustpass=changeit clients/b5e0526f-25b5-452c-9d66-e56515402e7f/roles -r master -s name=user
 kcadm.sh create users --trustpass=changeit -r master -s username=demouser -s enabled=true
 kcadm.sh set-password --trustpass=changeit -r master --username demouser --new-password password
-kcadm.sh add-roles --trustpass changeit --uusername demouser --rolename user -r master
+kcadm.sh add-roles --trustpass changeit --uusername demouser --rolename user -r master --cclientid inventoryservice
 ```
 
 Login & configuration
