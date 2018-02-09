@@ -1,5 +1,5 @@
 apiVersion: v1
-kind: DeploymentConfig
+kind: Deployment
 metadata:
   name: product-catalog
 spec:
@@ -37,20 +37,6 @@ spec:
         volumeMounts:
           - name: keystore-volume
             mountPath: /var/run/secrets/java.io/keystores 
-      - args:
-        - -p
-        - "15001"
-        - -u
-        - "1337"
-        image: docker.io/istio/proxy_init:0.5.0
-        imagePullPolicy: IfNotPresent
-        name: istio-init
-        resources: {}
-        securityContext:
-          capabilities:
-            add:
-            - NET_ADMIN
-          privileged: true
       containers:
       - name: product-catalog
         image: "product/product-catalog:latest"
@@ -62,62 +48,7 @@ spec:
         - name: keystore-volume
           mountPath: /var/run/secrets/java.io/keystores
 
-      - args:
-        - proxy
-        - sidecar
-        - -v
-        - "2"
-        - --configPath
-        - /etc/istio/proxy
-        - --binaryPath
-        - /usr/local/bin/envoy
-        - --serviceCluster
-        - product-catalog
-        - --drainDuration
-        - 45s
-        - --parentShutdownDuration
-        - 1m0s
-        - --discoveryAddress
-        - istio-pilot.istio-system:15003
-        - --discoveryRefreshDelay
-        - 1s
-        - --zipkinAddress
-        - zipkin.istio-system:9411
-        - --connectTimeout
-        - 10s
-        - --statsdUdpAddress
-        - istio-mixer.istio-system:9125
-        - --proxyAdminPort
-        - "15000"
-        - --controlPlaneAuthPolicy
-        - NONE
-        env:
-        - name: POD_NAME
-          valueFrom:
-            fieldRef:
-              fieldPath: metadata.name
-        - name: POD_NAMESPACE
-          valueFrom:
-            fieldRef:
-              fieldPath: metadata.namespace
-        - name: INSTANCE_IP
-          valueFrom:
-            fieldRef:
-              fieldPath: status.podIP
-        image: docker.io/istio/proxy:0.5.0
-        imagePullPolicy: IfNotPresent
-        name: istio-proxy
-        resources: {}
-        securityContext:
-          privileged: true
-          readOnlyRootFilesystem: false
-          runAsUser: 1337
-        volumeMounts:
-        - mountPath: /etc/istio/proxy
-          name: istio-envoy
-        - mountPath: /etc/certs/
-          name: istio-certs
-          readOnly: true
+ 
           
       volumes:
       - name: keystore-volume
