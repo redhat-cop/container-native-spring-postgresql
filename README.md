@@ -49,7 +49,7 @@ Here are the steps for the installation:
 | 10. [Configure Istio to do Mutual TLS authentication](./istio/enabling-tls.md) | ![step10](./media/step10.png) |
 | 11. [Configure istio to do OAuth Authentication via RH SSO](./istio/enabling_sso.md) | ![step11](./media/step11.png) |
 | 12. [Istio Add-ons installation (prometheus, Jaeger)](./istio/addons.md) | ![step12](./media/step12.png) |
-| 13. Configure microsegmentation | ![step13](./media/step13.png) |
+| 13. [Configure microsegmentation](./microsegmentation/README.md) | ![step13](./media/step13.png) |
 | 14. [Build and deploy the application](./spring/README.md) | ![step14](./media/step14.png) |
 
 

@@ -4,6 +4,8 @@ metadata:
   name: product-catalog
   annotations:
     auth.istio.io/8080: MUTUAL_TLS
+    io.raffa.microsegmentation: 'true'
+    io.raffa.microsegmentation.additional-ports: 15000/tcp
 spec:
   ports:
   - port: 8080
