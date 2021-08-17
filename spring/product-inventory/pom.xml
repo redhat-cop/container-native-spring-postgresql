@@ -75,7 +75,7 @@
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
-			<version>23.0</version>
+			<version>30.1.0.redhat-00001</version>
 		</dependency>
 		<!-- Testing -->
 		<dependency>
