@@ -19,7 +19,7 @@
 
 	<properties>
 		<maven.spring-boot.plugin.version>1.5.8.RELEASE</maven.spring-boot.plugin.version>
-		<postgresql.version>9.4.1212</postgresql.version>
+		<postgresql.version>42.2.25</postgresql.version>
 		<spring-boot.bom.version>1.5.8.Final</spring-boot.bom.version>
 	</properties>
 
